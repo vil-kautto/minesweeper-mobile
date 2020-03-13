@@ -18,6 +18,7 @@
         />
 
     <Button
+        android:id="@+id/startButton"
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
@@ -29,6 +30,7 @@
         />
 
     <Button
+        android:id="@+id/highScoreButton"
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
@@ -41,6 +43,7 @@
         />
 
     <Button
+        android:id="@+id/settingsButton"
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"

@@ -6,7 +6,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,30 +21,52 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         messenger = this;
+        buttonAnimator();
+    }
+
+    public void buttonAnimator() {
+        Button btn = findViewById(R.id.playButton);
+        Animation buttonAnimation =
+                AnimationUtils.loadAnimation(this, R.anim.button_bounce);
+        btn.startAnimation(buttonAnimation);
+
     }
 
     // handles button click events on main menu
     public void clicked(View v) {
         Intent intent;
         switch(v.getId()) {
-            case(R.id.startButton):
-                toaster("Play");
+            case(R.id.playButton):
+                System.out.println("play");
                 intent = new Intent(this, Game.class);
                 startActivity(intent);
                 break;
             case(R.id.highScoreButton):
-                toaster("High Scores");
+                System.out.println("High Scores");
                 intent = new Intent(this, HighScore.class);
                 startActivity(intent);
                 break;
             case(R.id.settingsButton):
-                toaster("Settings");
+                System.out.println("Settings");
                 intent = new Intent(this, Settings.class);
                 startActivity(intent);
                 break;
         }
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        TextView tv = findViewById(R.id.title);
+        tv.setText("Minesweeper!");
+    }
+
+    public void titleClick(View v) {
+        TextView tv = findViewById(R.id.title);
+        tv.setText("New theme unlocked!");
+        toaster("The game was made by Ville Kautto");
+    }
+
     public void toaster(String text) {
         Toast.makeText(messenger, text, Toast.LENGTH_LONG).show();
     }

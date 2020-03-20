@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         buttonAnimator();
     }
 
+    // Assigns and starts button animation
     public void buttonAnimator() {
         Button btn = findViewById(R.id.playButton);
         Animation buttonAnimation =
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // handles button click events on main menu
+    // handles button click events on main menu. Also opens a new activity upon clicking
     public void clicked(View v) {
         Intent intent;
         switch(v.getId()) {
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Changes title on based on activity state
     @Override
     protected void onResume() {
         super.onResume();
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         tv.setText("Minesweeper!");
     }
 
+    // Handles title click
     public void titleClick(View v) {
         TextView tv = findViewById(R.id.title);
         tv.setText("New theme unlocked!");

@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Game" />
-        <activity android:name=".HighScore" />
+        <activity android:name=".HighScoreActivity" />
         <activity
-            android:name=".Settings"
+            android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:theme="@style/SettingTheme"/>
         <activity android:name=".MainActivity">

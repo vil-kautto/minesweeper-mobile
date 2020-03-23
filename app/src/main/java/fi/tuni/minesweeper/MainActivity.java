@@ -1,8 +1,5 @@
 package fi.tuni.minesweeper;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +9,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class MainActivity extends AppCompatActivity {
 
-    Activity messenger;
+    AppCompatActivity messenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +43,12 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case(R.id.highScoreButton):
                 System.out.println("High Scores");
-                intent = new Intent(this, HighScore.class);
+                intent = new Intent(this, HighScoreActivity.class);
                 startActivity(intent);
                 break;
             case(R.id.settingsButton):
                 System.out.println("Settings");
-                intent = new Intent(this, Settings.class);
+                intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
                 break;
         }

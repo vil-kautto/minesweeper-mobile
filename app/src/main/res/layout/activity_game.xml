@@ -8,23 +8,29 @@
     tools:context=".Game">
 
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Game"
-        android:padding="20dp"
-        />
-
-    <TableLayout
-        android:shrinkColumns="*"
-        android:id="@+id/gameBoard"
+    <ImageButton
+        android:id="@+id/restart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#757575"
-        >
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:background="@drawable/game_state_normal"
+        android:onClick="newGame"
+        />
 
-    </TableLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:shrinkColumns="*"
+            android:id="@+id/gameBoard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#CCCCCC" >
+        </TableLayout>
+
+    </ScrollView>
+
 
 </LinearLayout>

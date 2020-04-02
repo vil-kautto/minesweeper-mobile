@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Random;
@@ -43,11 +44,13 @@ public class Game extends AppCompatActivity {
      * NewGame generates a new game board and resets the stats of current game
      */
     public void newGame() {
+
         gameState = RUNNING;
         System.out.println("Starting a new game");
         board = generateBoard();
-        setButtons();
         setMines();
+        setNumbers();
+        setScene();
     }
 
     /**
@@ -57,14 +60,15 @@ public class Game extends AppCompatActivity {
     public void newGame(View v) {
         System.out.println("This feature is still in progress, please wait for the next release");
 
-        /*
+        toaster("Resetting current game.");
+        TableLayout tl = findViewById(R.id.gameBoard);
+        tl.removeAllViews();
+
         gameState = RUNNING;
         System.out.println("Starting a new game");
         board = generateBoard();
-        setButtons();
+        setScene();
         setMines();
-         */
-
     }
 
 
@@ -90,20 +94,16 @@ public class Game extends AppCompatActivity {
                 board[i][j].setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
 
-                        // this is not first click
                         // check if current block is flagged
                         // if flagged the don't do anything
-                        // as that operation is handled by LongClick
-                        // if block is not flagged then uncover nearby blocks
-                        // till we get numbered mines
                         if(!tempBoard[currentRow][currentCol].isFlagged()) {
-                            // open nearby blocks till we get numbered blocks
+                            // open nearby blocks till we get mines
                             uncoverCell(currentRow, currentCol);
 
                             // Minecheck on clicked cell
                             if(tempBoard[currentRow][currentCol].hasMine()) {
-                                gameState = LOSE;
-                                gameResolve();
+                                //gameState = LOSE;
+                                //gameResolve();
                             }
 
                             // Checking for win condition
@@ -119,9 +119,8 @@ public class Game extends AppCompatActivity {
                 board[i][j].setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View view) {
 
-                        // if clicked cell is enabled, clickable or flagged
-                        if(tempBoard[currentRow][currentCol].isClickable() &&
-                                tempBoard[currentRow][currentCol].isEnabled() ||
+                        // if clicked cell is enabled or flagged
+                        if(tempBoard[currentRow][currentCol].isEnabled() ||
                                         tempBoard[currentRow][currentCol].isFlagged()) {
 
                             // for long clicks set:
@@ -146,11 +145,11 @@ public class Game extends AppCompatActivity {
                             else {
                                 tempBoard[currentRow][currentCol].setClickable(true);
                                 tempBoard[currentRow][currentCol].clearAllIcons();
-
                             }
                             updateMineCountDisplay(); // update mine display
                         }
                         return true;
+
                     }
                 });
             }
@@ -191,20 +190,18 @@ public class Game extends AppCompatActivity {
             board[row][col].setRevealed();
 
             // if clicked block have nearby mines then don't open further
-            if (board[row][col].getSurroundingMineCount() != 0 ) {
+            if (board[row][col].getMineCount() != 0 ) {
                 return;
             }
-        } else if(board[row][col].hasMine()) {
-            gameState = LOSE;
         }
     }
 
 
 
     /**
-     * SetButtons adds all generated buttons to the game board that is visible to the user
+     * Scene adds all generated buttons to the game board that is visible to the user
      */
-    public void setButtons() {
+    public void setScene() {
         System.out.println("Adding cells");
         TableLayout tl = findViewById(R.id.gameBoard);
         TableRow tr = new TableRow(this);
@@ -235,19 +232,33 @@ public class Game extends AppCompatActivity {
         return true;
     }
 
+    private void setNumbers() {
+        for(int i = 0;i<board.length;i++) {
+            for(int j = 0; j<board[i].length;j++) {
+                board[i][j].setMineCount(mines);
+            }
+        }
+    }
+
     /**
      * Updates mine count to the screen after flags are placed
      * mineCount = mines - flagsPlaced
      * Still work in progress, please wait for the next release
      */
     private void updateMineCountDisplay() {
-
+        int minesDisplayed = mines - minesFlagged;
+        TextView tv = findViewById(R.id.mineCounter);
+        tv.setText("Mines: "+ minesDisplayed);
     }
 
+
+    /**
+     * RevealMines reveals all the mines on the board after the game has ended
+     */
     public void revealMines() {
         for(int i = 0;i<board.length;i++) {
             for(int j = 0; j<board[i].length;j++) {
-                if(board[i][j].hasMine()) {
+                if(board[i][j].hasMine() || !board[i][j].hasMine()) {
                     board[i][j].setRevealed();
                 }
                 board[i][j].setCellDisabled(true);

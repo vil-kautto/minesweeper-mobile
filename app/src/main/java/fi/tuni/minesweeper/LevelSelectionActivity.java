@@ -6,6 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ * LevelSelection -activity contains difficulty selection and launches the game activity
+ * @author      Ville Kautto <ville.kautto@hotmail.fi>
+ * @version     2020.04.07
+ * @since       2020.04.07
+ */
 public class LevelSelectionActivity extends AppCompatActivity {
 
     @Override
@@ -15,7 +21,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
     }
 
     /**
-     * clicked handles button click events from main menu. Also opens a new activity upon clicking
+     * Clicked handles button click events from main menu. Also opens a new activity upon clicking
      * @param v Clicked View
      */
     public void clicked(View v) {
@@ -40,25 +46,25 @@ public class LevelSelectionActivity extends AppCompatActivity {
             case(R.id.hardButton):
                 System.out.println("hard");
                 intent = new Intent(this, Game.class);
-                intent.putExtra("rows", 30);
-                intent.putExtra("cols", 16);
+                intent.putExtra("rows", 20);
+                intent.putExtra("cols", 20);
                 intent.putExtra("mines", 99);
                 startActivity(intent);
                 break;
             case(R.id.extremeButton):
                 System.out.println("extreme");
                 intent = new Intent(this, Game.class);
-                intent.putExtra("rows", 30);
-                intent.putExtra("cols", 16);
-                intent.putExtra("mines", 144);
+                intent.putExtra("rows", 20);
+                intent.putExtra("cols", 20);
+                intent.putExtra("mines", 120);
                 startActivity(intent);
                 break;
             case(R.id.customButton):
                 System.out.println("custom");
                 intent = new Intent(this, Game.class);
-                intent.putExtra("rows", 5);
-                intent.putExtra("cols", 5);
-                intent.putExtra("mines", 5);
+                intent.putExtra("rows", 30);
+                intent.putExtra("cols", 30);
+                intent.putExtra("mines", 150);
                 startActivity(intent);
                 break;
         }

@@ -3,10 +3,8 @@ package fi.tuni.minesweeper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -16,13 +14,15 @@ import android.widget.Toast;
 import java.util.Random;
 
 /**
- * Minesweeper for android
+ * Game -activity contains the main functionality for Minesweeper
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.03.24
+ * @version     2020.04.07
+ * @since       2020.03.24
  */
 public class Game extends AppCompatActivity {
 
     static Activity messenger;
+    static AudioManager audioManager = new AudioManager();
 
     private int rows;
     private int cols;
@@ -60,11 +60,14 @@ public class Game extends AppCompatActivity {
     }
 
     /**
-     * Starts a new game via button in-game
+     * Resets current progress and starts a new game via button in-game
      * @param v ImageButton's view
      */
     public void newGame(View v) {
         System.out.println("This feature is still in progress, please wait for the next release");
+
+        // resetting previous data
+        minesFlagged = 0;
 
         TableLayout tl = findViewById(R.id.gameBoard);
         tl.removeAllViews();
@@ -88,7 +91,6 @@ public class Game extends AppCompatActivity {
         for(int i = 0; i<rows; i++) {
             for(int j = 0; j<cols; j++) {
                 Cell btn = new Cell(this);
-
                 board[i][j] = btn;
 
                 final Cell[][] tempBoard = board;
@@ -96,7 +98,7 @@ public class Game extends AppCompatActivity {
                 final int currentCol = j;
 
                 // Prepare yourself mentally, this is going to be a long one
-                // Regular click opens cells that are interactable
+                // Regular click opens cells that are clickable
                 board[i][j].setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
 
@@ -126,8 +128,8 @@ public class Game extends AppCompatActivity {
                     public boolean onLongClick(View view) {
 
                         // if clicked cell is enabled or flagged
-                        if(tempBoard[currentRow][currentCol].isEnabled() ||
-                                        tempBoard[currentRow][currentCol].isFlagged()) {
+                        if(tempBoard[currentRow][currentCol].isClickable() ||
+                                tempBoard[currentRow][currentCol].isFlagged()) {
 
                             // for long clicks set:
                             // 1. empty cells to flagged
@@ -168,7 +170,7 @@ public class Game extends AppCompatActivity {
     }
 
     /**
-     * Setmines sets mines randomly into the board
+     * SetMines sets mines to random locations in the board
      */
     public void setMines() {
         System.out.println("Adding mines");
@@ -193,22 +195,18 @@ public class Game extends AppCompatActivity {
      */
     private void uncoverCell(int row, int col) {
         // only open non-flagged and mineless cells
-        if(!board[row][col].hasMine() || !board[row][col].isFlagged()) {
+        if(board[row][col].isClickable() && !board[row][col].isFlagged()) {
             // assign a number to clicked cell
             setNumber(row, col);
 
             // reveal clicked cell
             System.out.println("Revealed cell at: " + row + " " + col);
             board[row][col].setRevealed();
-
-            // if clicked block have nearby mines then don't open further
-            if (board[row][col].getMineCount() != 0 ) {
-                return;
+            if(board[row][col].getMineCount() == 0) {
+                uncoverNearbyCells(row, col);
             }
         }
     }
-
-
 
     /**
      * Scene adds all generated buttons to the game board that is visible to the user
@@ -269,7 +267,30 @@ public class Game extends AppCompatActivity {
         } else {
             board[currentRow][currentCol].setMineCount(-1);
         }
+    }
 
+    /**
+     * uncoverNearbyCells checks nearby cells and keeps revealing them until there are mines or flags
+     * @param currentRow
+     * @param currentCol
+     */
+    private void uncoverNearbyCells(int currentRow, int currentCol) {
+        if(!board[currentRow][currentCol].hasMine()) {
+
+            // rotating through each adjacent cell
+            for(int nextRow = -1; nextRow <= 1; nextRow++) {
+                for(int nextCol = -1; nextCol <= 1; nextCol++) {
+                    if(insideBounds(currentRow+nextRow,currentCol+nextCol)) {
+                        if(!board[currentRow+nextRow][currentCol+nextCol].hasMine() &&
+                                !board[currentRow+nextRow][currentCol+nextCol].isRevealed()) {
+                            // reveals mineless and unrevealed cells
+                            uncoverCell(currentRow+nextRow, currentCol+nextCol);
+                        }
+                    }
+                }
+            }
+
+        }
     }
 
     /**
@@ -300,17 +321,18 @@ public class Game extends AppCompatActivity {
         tv.setText("Mines: "+ minesDisplayed);
     }
 
-
     /**
      * RevealMines reveals all the mines on the board after the game has ended
      */
     public void revealMines() {
         for(int i = 0;i<board.length;i++) {
             for(int j = 0; j<board[i].length;j++) {
-                if(board[i][j].hasMine() || !board[i][j].hasMine()) {
+                if(board[i][j].hasMine()) {
                     board[i][j].setRevealed();
                 }
-                board[i][j].setCellEnabled(true);
+                if(!board[i][j].isRevealed()) {
+                    board[i][j].setCellDisabled(true);
+                }
             }
         }
     }

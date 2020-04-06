@@ -13,21 +13,10 @@ public class Cell extends AppCompatButton {
     private boolean isFlagged;          // is cell flagged as a potential mine
     private boolean isQuestionMarked;   // is cell question marked
     private boolean isClickable;        // can block accept click events
-    private int surroundingMineCount;   // number of mines in nearby blocks
+    private int surroundingMines;   // number of mines in nearby blocks
 
     public Cell(Context context) {
         super(context);
-        setDefaults();
-
-    }
-
-    public Cell(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        setDefaults();
-    }
-
-    public Cell(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
         setDefaults();
     }
 
@@ -40,7 +29,7 @@ public class Cell extends AppCompatButton {
         isFlagged = false;
         isQuestionMarked = false;
         isClickable = true;
-        surroundingMineCount = 0;
+        surroundingMines = 0;
 
         this.setBackgroundResource(R.drawable.square_gray);
         setBoldFont();
@@ -51,8 +40,15 @@ public class Cell extends AppCompatButton {
      * @param numberOfMines
      */
     public void setMineCount(int numberOfMines) {
-        this.setBackgroundResource(R.drawable.square_gray);
-        updateNumber(numberOfMines);
+        this.surroundingMines = numberOfMines;
+    }
+
+    /**
+     * returns the number of mines on  surrounding Cells
+     * @return  number of mines on surrounding cells
+     */
+    public int getMineCount() {
+        return this.surroundingMines;
     }
 
     /**
@@ -87,7 +83,7 @@ public class Cell extends AppCompatButton {
      * if enabled is false, the cell will be disabled
      * @param status sets the state of the cell
      */
-    public void setCellDisabled(boolean status) {
+    public void setCellEnabled(boolean status) {
         isClickable = status;
         if(status) {
             this.setBackgroundResource(R.drawable.square_gray_dark);
@@ -113,16 +109,16 @@ public class Cell extends AppCompatButton {
         // cannot uncover a mine which is not covered
         if(!revealed) {
             revealed = true;
-            setCellDisabled(false);
+            setCellEnabled(false);
 
             // Check for a mine
             if(hasMine()) {
                 setMineIcon();
             } else {
                 // add a number if surrounding cells contain a mine
-                setMineCount(surroundingMineCount);
+                updateNumber();
             }
-            this.setBackgroundResource(R.drawable.square_gray_dark);
+            this.setBackgroundResource(R.drawable.square_gray_revealed);
         }
 
 
@@ -130,15 +126,14 @@ public class Cell extends AppCompatButton {
 
     /**
      * Assaings a different colour on numbers based on the count of nearby mines
-     * @param text the number of mines nearby
      */
-    public void updateNumber(int text) {
+    public void updateNumber() {
         // skip this step if there are no mines nearby
-        if(text != 0) {
-            this.setText(Integer.toString(text));
+        if(this.surroundingMines > 0) {
+            this.setText(Integer.toString(this.surroundingMines));
 
             // It is possible to get 8 mines on surrounding tiles
-            switch(text) {
+            switch(this.surroundingMines) {
                 case 1:
                     this.setTextColor(Color.BLUE);
                     break;
@@ -164,6 +159,8 @@ public class Cell extends AppCompatButton {
                     this.setTextColor(Color.rgb(71, 71, 71));
                     break;
             }
+        } else {
+            this.setTextColor(Color.BLACK);
         }
     }
 
@@ -172,14 +169,6 @@ public class Cell extends AppCompatButton {
      */
     public void plantMine() {
         isMine = true;
-    }
-
-    /**
-     * Triggers game over if the player clicks the mine
-     */
-    public void triggerMine() {
-        setMineIcon();
-        this.setTextColor(Color.RED);
     }
 
     /**
@@ -196,22 +185,6 @@ public class Cell extends AppCompatButton {
      */
     public boolean hasMine() {
         return isMine;
-    }
-
-    /**
-     * Sets the count of mines in surrounding cells
-     * @param numberOfMines the number of mines nearby
-     */
-    public void setSurroundingMineCount(int numberOfMines) {
-        surroundingMineCount = numberOfMines;
-    }
-
-    /**
-     * Returns the count of mines in surrounding cells
-     * @return number of mines in surrounding cells
-     */
-    public int getSurroundingMineCount() {
-        return surroundingMineCount;
     }
 
     /**

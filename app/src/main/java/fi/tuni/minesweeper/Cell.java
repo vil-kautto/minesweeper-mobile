@@ -3,17 +3,24 @@ package fi.tuni.minesweeper;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.AttributeSet;
+import android.widget.TableRow;
 
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 
-public class Cell extends AppCompatButton {
+/**
+ * Cell object base used in minesweeper's game -activity
+ * @author      Ville Kautto <ville.kautto@hotmail.fi>
+ * @version     2020.04.07
+ * @since       2020.03.24
+ */
+public class Cell extends AppCompatButton{
     private boolean revealed;           // is the cell revealed
     private boolean isMine;             // does the cell contain a mine
     private boolean isFlagged;          // is cell flagged as a potential mine
     private boolean isQuestionMarked;   // is cell question marked
     private boolean isClickable;        // can block accept click events
-    private int surroundingMines;   // number of mines in nearby blocks
+    private int surroundingMines;       // number of mines in nearby blocks
 
     public Cell(Context context) {
         super(context);
@@ -32,6 +39,13 @@ public class Cell extends AppCompatButton {
         surroundingMines = 0;
 
         this.setBackgroundResource(R.drawable.square_gray);
+
+        // Scaling pixels to dps
+        int dps = 35;
+        final float scale = getContext().getResources().getDisplayMetrics().density;
+        int pixels = (int) (dps * scale + 0.5f);
+
+        this.setLayoutParams(new TableRow.LayoutParams(pixels, pixels));
         setBoldFont();
     }
 
@@ -64,9 +78,8 @@ public class Cell extends AppCompatButton {
      * Places a flag icon to cell
      */
     public void setFlagIcon() {
-        this.setText("F");
-        this.setBackgroundResource(R.drawable.square_gray);
-        this.setTextColor(Color.RED);
+        this.setBackgroundResource(R.drawable.square_gray_flagged);
+        this.setTextColor(Color.rgb(50, 10, 10));
     }
 
     /**
@@ -80,15 +93,13 @@ public class Cell extends AppCompatButton {
 
     /**
      * Changes the state of the cell from enabled to disabled
-     * if enabled is false, the cell will be disabled
+     * if status is true, the cell will be disabled
      * @param status sets the state of the cell
      */
-    public void setCellEnabled(boolean status) {
-        isClickable = status;
+    public void setCellDisabled(boolean status) {
+        isClickable = !status;
         if(status) {
             this.setBackgroundResource(R.drawable.square_gray_dark);
-        } else {
-            this.setBackgroundResource(R.drawable.square_gray);
         }
     }
 
@@ -107,9 +118,9 @@ public class Cell extends AppCompatButton {
      */
     public void setRevealed() {
         // cannot uncover a mine which is not covered
-        if(!revealed) {
+        if(!this.revealed && this.isClickable) {
             revealed = true;
-            setCellEnabled(false);
+            setClickable(false);
 
             // Check for a mine
             if(hasMine()) {
@@ -118,7 +129,6 @@ public class Cell extends AppCompatButton {
                 // add a number if surrounding cells contain a mine
                 updateNumber();
             }
-            this.setBackgroundResource(R.drawable.square_gray_revealed);
         }
 
 
@@ -128,6 +138,8 @@ public class Cell extends AppCompatButton {
      * Assaings a different colour on numbers based on the count of nearby mines
      */
     public void updateNumber() {
+        // Change background color
+        this.setBackgroundResource(R.drawable.square_gray_revealed);
         // skip this step if there are no mines nearby
         if(this.surroundingMines > 0) {
             this.setText(Integer.toString(this.surroundingMines));

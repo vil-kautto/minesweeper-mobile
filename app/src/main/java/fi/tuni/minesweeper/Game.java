@@ -1,9 +1,11 @@
 package fi.tuni.minesweeper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TableLayout;
@@ -22,7 +24,6 @@ import java.util.Random;
 public class Game extends AppCompatActivity {
 
     static Activity messenger;
-    static AudioManager audioManager = new AudioManager();
 
     private int rows;
     private int cols;
@@ -38,6 +39,7 @@ public class Game extends AppCompatActivity {
         rows = intent.getIntExtra("rows", 5);
         cols = intent.getIntExtra("cols", 5);
         mines = intent.getIntExtra("mines", 5);
+
         newGame();
     }
 
@@ -52,6 +54,7 @@ public class Game extends AppCompatActivity {
      * NewGame generates a new game board and resets the stats of current game
      */
     public void newGame() {
+
         gameState = RUNNING;
         System.out.println("Starting a new game");
         board = generateBoard();
@@ -72,6 +75,7 @@ public class Game extends AppCompatActivity {
         TableLayout tl = findViewById(R.id.gameBoard);
         tl.removeAllViews();
         toaster("Resetting current game.");
+        playSound(R.raw.newgame);
 
         gameState = RUNNING;
         System.out.println("Starting a new game");
@@ -104,8 +108,8 @@ public class Game extends AppCompatActivity {
 
                         // check if current block is flagged
                         // if flagged the don't do anything
-                        if(!tempBoard[currentRow][currentCol].isFlagged()) {
-                            // open nearby blocks till we get mines
+                        if(tempBoard[currentRow][currentCol].isClickable()) {
+                            playSound(R.raw.click);
                             uncoverCell(currentRow, currentCol);
 
                             // Mine check on clicked cell
@@ -337,19 +341,41 @@ public class Game extends AppCompatActivity {
         }
     }
 
+
+    MediaPlayer mediaPlayer = null;
+    /**
+     * playSound creates a local broadcast to audioManager which plays a given sound
+     * Please note, that this is currently just a temporary solution, that will be changed soon
+     * @param audioId
+     */
+    private void playSound(int audioId) {
+        mediaPlayer = MediaPlayer.create(this, audioId);
+        try {
+            mediaPlayer.start();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * gameResolve is called when the game is over
-     * It displays a different message depending on
+     * It displays a different message depending on gameState
      */
     public void gameResolve() {
         revealMines();
         if(gameState == WIN) {
+            playSound(R.raw.gratz);
             toaster("Your winrar!");
         } else if(gameState == LOSE) {
+            playSound(R.raw.explosion);
             toaster("Your loose!");
         }
-
     }
+
+    /**
+     * Toaster creates toasts and displays them visually to user
+     * @param message Displayed message
+     */
     public void toaster(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }

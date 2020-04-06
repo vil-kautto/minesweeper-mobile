@@ -97,7 +97,7 @@ public class Cell extends AppCompatButton{
      * @param status sets the state of the cell
      */
     public void setCellDisabled(boolean status) {
-        isClickable = !status;
+        this.isClickable = !status;
         if(status) {
             this.setBackgroundResource(R.drawable.square_gray_dark);
         }

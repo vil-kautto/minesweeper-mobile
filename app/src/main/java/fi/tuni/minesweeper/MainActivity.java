@@ -1,6 +1,8 @@
 package fi.tuni.minesweeper;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -11,9 +13,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * MainActivity launches other application activities
+ * @author      Ville Kautto <ville.kautto@hotmail.fi>
+ * @version     2020.04.07
+ * @since       2020.03.24
+ */
 public class MainActivity extends AppCompatActivity {
 
-    AppCompatActivity messenger;
+    Activity messenger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void clicked(View v) {
         Intent intent;
+        playSound(R.raw.click);
         switch(v.getId()) {
             case(R.id.playButton):
                 System.out.println("play");
@@ -75,6 +84,21 @@ public class MainActivity extends AppCompatActivity {
         TextView tv = findViewById(R.id.title);
         tv.setText("Hello there");
         toaster("The game was made by Ville Kautto");
+    }
+
+    MediaPlayer mediaPlayer = null;
+    /**
+     * playSound creates a local broadcast to audioManager which plays a given sound
+     * Please note, that this is currently just a temporary solution, that will be changed soon
+     * @param audioId
+     */
+    private void playSound(int audioId) {
+        mediaPlayer = MediaPlayer.create(this, audioId);
+        try {
+            mediaPlayer.start();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void toaster(String text) {

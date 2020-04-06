@@ -3,6 +3,7 @@ package fi.tuni.minesweeper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 
@@ -26,6 +27,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
      */
     public void clicked(View v) {
         Intent intent;
+        playSound(R.raw.click);
         switch(v.getId()) {
             case(R.id.easyButton):
                 System.out.println("easy");
@@ -61,12 +63,24 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 break;
             case(R.id.customButton):
                 System.out.println("custom");
-                intent = new Intent(this, Game.class);
-                intent.putExtra("rows", 30);
-                intent.putExtra("cols", 30);
-                intent.putExtra("mines", 150);
+                intent = new Intent(this, CustomGameActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    MediaPlayer mediaPlayer = null;
+    /**
+     * playSound creates a local broadcast to audioManager which plays a given sound
+     * Please note, that this is currently just a temporary solution, that will be changed soon
+     * @param audioId
+     */
+    private void playSound(int audioId) {
+        mediaPlayer = MediaPlayer.create(this, audioId);
+        try {
+            mediaPlayer.start();
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 }

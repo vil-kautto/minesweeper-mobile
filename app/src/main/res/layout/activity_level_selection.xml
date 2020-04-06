@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LevelSelectionActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select level difficulty"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="40dp"
+        android:layout_weight="0.9"
+        />
+
+    <Button
+        android:id="@+id/easyButton"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="0.01"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Easy"
+        android:textSize="20dp"
+        android:onClick="clicked"
+        />
+
+    <Button
+        android:id="@+id/mediumButton"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="0.01"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Medium"
+        android:textSize="20dp"
+        android:onClick="clicked"
+        />
+    <Button
+        android:id="@+id/hardButton"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="0.01"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Hard"
+        android:textSize="20dp"
+        android:onClick="clicked"
+        />
+
+    <Button
+        android:id="@+id/extremeButton"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="0.01"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Extreme"
+        android:textSize="20dp"
+        android:onClick="clicked"
+        />
+
+    <Button
+        android:id="@+id/customButton"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_weight="0.01"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="Custom"
+        android:textSize="20dp"
+        android:onClick="clicked"
+        />
+
+
+</LinearLayout>

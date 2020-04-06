@@ -3,7 +3,10 @@ package fi.tuni.minesweeper;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,15 +24,20 @@ public class Game extends AppCompatActivity {
 
     static Activity messenger;
 
-    private int rows = 12;
-    private int cols = 12;
-    private int mines = 12;
+    private int rows;
+    private int cols;
+    private int mines;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         messenger = this;
+
+        Intent intent = getIntent();
+        rows = intent.getIntExtra("rows", 5);
+        cols = intent.getIntExtra("cols", 5);
+        mines = intent.getIntExtra("mines", 5);
         newGame();
     }
 
@@ -44,33 +52,30 @@ public class Game extends AppCompatActivity {
      * NewGame generates a new game board and resets the stats of current game
      */
     public void newGame() {
-
         gameState = RUNNING;
         System.out.println("Starting a new game");
         board = generateBoard();
         setMines();
-        setNumbers();
         setScene();
     }
 
     /**
-     * same as above, but takes a View as a parameter
+     * Starts a new game via button in-game
      * @param v ImageButton's view
      */
     public void newGame(View v) {
         System.out.println("This feature is still in progress, please wait for the next release");
 
-        toaster("Resetting current game.");
         TableLayout tl = findViewById(R.id.gameBoard);
         tl.removeAllViews();
+        toaster("Resetting current game.");
 
         gameState = RUNNING;
         System.out.println("Starting a new game");
         board = generateBoard();
-        setScene();
         setMines();
+        setScene();
     }
-
 
     private int minesFlagged = 0;
 
@@ -83,6 +88,7 @@ public class Game extends AppCompatActivity {
         for(int i = 0; i<rows; i++) {
             for(int j = 0; j<cols; j++) {
                 Cell btn = new Cell(this);
+
                 board[i][j] = btn;
 
                 final Cell[][] tempBoard = board;
@@ -100,10 +106,10 @@ public class Game extends AppCompatActivity {
                             // open nearby blocks till we get mines
                             uncoverCell(currentRow, currentCol);
 
-                            // Minecheck on clicked cell
+                            // Mine check on clicked cell
                             if(tempBoard[currentRow][currentCol].hasMine()) {
-                                //gameState = LOSE;
-                                //gameResolve();
+                                gameState = LOSE;
+                                gameResolve();
                             }
 
                             // Checking for win condition
@@ -131,9 +137,11 @@ public class Game extends AppCompatActivity {
                             // case 1. set blank block to flagged
                             if (!tempBoard[currentRow][currentCol].isFlagged() &&
                                     !tempBoard[currentRow][currentCol].isQuestionMarked()) {
-                                tempBoard[currentRow][currentCol].setFlagged(true);
-                                minesFlagged++;
-                                updateMineCountDisplay();
+                                if(minesFlagged < mines) {
+                                    tempBoard[currentRow][currentCol].setFlagged(true);
+                                    minesFlagged++;
+                                    updateMineCountDisplay();
+                                }
                             }
                             // case 2. set flagged to question mark
                             else if (tempBoard[currentRow][currentCol].isFlagged()) {
@@ -174,6 +182,7 @@ public class Game extends AppCompatActivity {
                 i++;
             }
         }
+        updateMineCountDisplay();
         System.out.println("Mines Set");
     }
 
@@ -185,6 +194,9 @@ public class Game extends AppCompatActivity {
     private void uncoverCell(int row, int col) {
         // only open non-flagged and mineless cells
         if(!board[row][col].hasMine() || !board[row][col].isFlagged()) {
+            // assign a number to clicked cell
+            setNumber(row, col);
+
             // reveal clicked cell
             System.out.println("Revealed cell at: " + row + " " + col);
             board[row][col].setRevealed();
@@ -205,9 +217,9 @@ public class Game extends AppCompatActivity {
         System.out.println("Adding cells");
         TableLayout tl = findViewById(R.id.gameBoard);
         TableRow tr = new TableRow(this);
-        for(int i=1;i<board.length-1;i++) {
+        for(int i=0;i<board.length;i++) {
             System.out.println(i);
-            for(int j = 1;j<board[i].length-1;j++) {
+            for(int j = 0;j<board[i].length;j++) {
                 tr.addView(board[i][j]);
             }
             tl.addView(tr);
@@ -232,18 +244,55 @@ public class Game extends AppCompatActivity {
         return true;
     }
 
-    private void setNumbers() {
-        for(int i = 0;i<board.length;i++) {
-            for(int j = 0; j<board[i].length;j++) {
-                board[i][j].setMineCount(mines);
+    /**
+     * SetNumbers assigns numbers on cells based on adjacent cells' mines
+     * goes trough each mineless cell and adds a number for each nearby mine
+     * @param currentRow Current row location on the board
+     * @param currentCol Current column loaction on the board
+     */
+    private void setNumber(int currentRow, int currentCol) {
+        //if the cell is not mine, assign a number
+        int surroundingMines = 0;
+        if(!board[currentRow][currentCol].hasMine()) {
+
+            // rotating through each adjacent cell
+            for(int nextRow = -1; nextRow <= 1; nextRow++) {
+                for(int nextCol = -1; nextCol <= 1; nextCol++) {
+                    if(insideBounds(currentRow+nextRow,currentCol+nextCol)) {
+                        if(board[currentRow+nextRow][currentCol+nextCol].hasMine()) {
+                            surroundingMines++;
+                        }
+                    }
+                }
             }
+            board[currentRow][currentCol].setMineCount(surroundingMines);
+        } else {
+            board[currentRow][currentCol].setMineCount(-1);
+        }
+
+    }
+
+    /**
+     * InsideBounds checks if suggested row and column is inside the board
+     * @param newRow Suggested row position
+     * @param newCol Suggested column position
+     * @return is the suggested position inside array bounds
+     */
+    private boolean insideBounds(int newRow, int newCol) {
+        if(rows > newRow  && newRow >= 0) {
+            if(cols > newCol && newCol  >= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
         }
     }
 
     /**
      * Updates mine count to the screen after flags are placed
      * mineCount = mines - flagsPlaced
-     * Still work in progress, please wait for the next release
      */
     private void updateMineCountDisplay() {
         int minesDisplayed = mines - minesFlagged;
@@ -261,7 +310,7 @@ public class Game extends AppCompatActivity {
                 if(board[i][j].hasMine() || !board[i][j].hasMine()) {
                     board[i][j].setRevealed();
                 }
-                board[i][j].setCellDisabled(true);
+                board[i][j].setCellEnabled(true);
             }
         }
     }

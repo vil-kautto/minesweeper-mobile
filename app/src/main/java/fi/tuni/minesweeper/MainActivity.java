@@ -32,13 +32,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // handles button click events on main menu. Also opens a new activity upon clicking
+    /**
+     * Clicked handles button click events from main menu. Also opens a new activity upon clicking
+     * @param v Clicked View
+     */
     public void clicked(View v) {
         Intent intent;
         switch(v.getId()) {
             case(R.id.playButton):
                 System.out.println("play");
-                intent = new Intent(this, Game.class);
+                intent = new Intent(this, LevelSelectionActivity.class);
                 startActivity(intent);
                 break;
             case(R.id.highScoreButton):
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Changes title on based on activity state
+    /**
+     * Resets the title based on activity state, see titleClick method below
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -62,10 +67,13 @@ public class MainActivity extends AppCompatActivity {
         tv.setText("Minesweeper!");
     }
 
-    // Handles title click
+    /**
+     * Adds funtionality to clicking the title, probably used later
+     * @param v Clicked view
+     */
     public void titleClick(View v) {
         TextView tv = findViewById(R.id.title);
-        tv.setText("New theme unlocked!");
+        tv.setText("Hello there");
         toaster("The game was made by Ville Kautto");
     }
 

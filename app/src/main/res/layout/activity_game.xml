@@ -24,7 +24,8 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Mines: 10"
+                android:text="Mines: ??"
+                android:textSize="15dp"
                 android:background="#FFFFFF"
                 />
 
@@ -44,6 +45,7 @@
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="Time: 0"
+                android:textSize="15dp"
                 android:background="#FFFFFF"
                 />
 

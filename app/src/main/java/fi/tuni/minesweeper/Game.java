@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +32,11 @@ public class Game extends AppCompatActivity {
     private int cols;
     private int mines;
 
+    /**
+     * onCreate takes parameters from LevelSelectionActivity and CustomGameActivity
+     * the parameters store game creation related data (rows, cols, mines)
+     * @param savedInstanceState stored parameters from another activities
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +57,8 @@ public class Game extends AppCompatActivity {
     private int gameState;
 
     private Cell[][] board;
+    private int timer = 0;
+    private boolean timerStarted = false;
 
     /**
      * NewGame generates a new game board and resets the stats of current game
@@ -69,8 +79,8 @@ public class Game extends AppCompatActivity {
     public void newGame(View v) {
         System.out.println("This feature is still in progress, please wait for the next release");
 
-        // resetting previous data
-        minesFlagged = 0;
+        // resetting previous stats
+        resetStats();
 
         TableLayout tl = findViewById(R.id.gameBoard);
         tl.removeAllViews();
@@ -82,6 +92,15 @@ public class Game extends AppCompatActivity {
         board = generateBoard();
         setMines();
         setScene();
+    }
+
+    private void resetStats() {
+        minesFlagged = 0;
+
+        timer = 0;
+        timerStarted = false;
+        TextView tv = findViewById(R.id.timer);
+        tv.setText("Timer: " + timer);
     }
 
     private int minesFlagged = 0;
@@ -111,6 +130,10 @@ public class Game extends AppCompatActivity {
                         if(tempBoard[currentRow][currentCol].isClickable()) {
                             playSound(R.raw.click);
                             uncoverCell(currentRow, currentCol);
+                            if(!timerStarted) {
+                                startTimer();
+                                timerStarted = true;
+                            }
 
                             // Mine check on clicked cell
                             if(tempBoard[currentRow][currentCol].hasMine()) {
@@ -362,14 +385,57 @@ public class Game extends AppCompatActivity {
      * It displays a different message depending on gameState
      */
     public void gameResolve() {
+        stopTimer();
         revealMines();
         if(gameState == WIN) {
             playSound(R.raw.gratz);
-            toaster("Your winrar!");
+            toaster("Congratulations, you have won the game!");
         } else if(gameState == LOSE) {
             playSound(R.raw.explosion);
-            toaster("Your loose!");
+            toaster("Boom, game over!");
+        } else {
+            System.out.println("Why am I running");
         }
+    }
+
+    /**
+     * StarTimer starts a timer service upon clicking the first cell
+     */
+    private void startTimer() {
+        Intent intent = new Intent(this, Timer.class);
+        startService(intent);
+    }
+
+    /**
+     * StopTimer stops a timer service upon game completion
+     */
+    private void stopTimer() {
+        Intent i = new Intent();
+        i.setAction("STOP");
+
+        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+    }
+
+    /**
+     * BroadcastReceiver listens for messages from other services, currently used only for timer
+     * Updates the UI's timer and counts up to 999
+     */
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            TextView tv = (TextView) findViewById(R.id.timer);
+            timer = intent.getIntExtra("time", 0);
+            tv.setText("Time: " + timer);
+        }
+    };
+
+    /**
+     * OnResume handles incoming requests
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(Game.this).registerReceiver(broadcastReceiver, new IntentFilter("TIMER"));
     }
 
     /**

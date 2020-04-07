@@ -41,6 +41,7 @@ public class CustomGameActivity extends AppCompatActivity {
                 toaster("The board size should be lower than 30");
                 return;
             }
+
             int mineAmount = Integer.parseInt(mineAmountText.getText().toString());
             if(mineAmount < 1) {
                 toaster("The amount of mines should be higher than 0");
@@ -50,7 +51,9 @@ public class CustomGameActivity extends AppCompatActivity {
                 return;
             }
 
-            if(boardSize * boardSize / mineAmount > 0.4) {
+            float boardMineRatio = mineAmount / (boardSize*boardSize);
+            System.out.println(boardMineRatio);
+            if(boardMineRatio < 0.4) {
                 intent.putExtra("rows", boardSize);
                 intent.putExtra("cols", boardSize);
                 intent.putExtra("mines", mineAmount);

@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CustomGameActivity"></activity>
+        <service
+            android:name=".Timer"
+            android:exported="false"></service>
+
+        <activity android:name=".CustomGameActivity" />
         <activity android:name=".LevelSelectionActivity" />
         <activity android:name=".Game" />
         <activity android:name=".HighScoreActivity" />

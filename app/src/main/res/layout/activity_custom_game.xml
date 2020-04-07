@@ -11,32 +11,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="30dp"
         android:text="Enter the following fields to start a custom game"
-        android:textSize="18sp"
+        android:textSize="18dp"
         android:textStyle="bold"
-        android:layout_weight="1"
+        android:layout_marginVertical="25dp"
+        android:layout_marginHorizontal="30dp"
         />
 
-
     <EditText
-        android:hint="Board Size (5-30)"
+        android:hint="Board Size (3-30)"
         android:id="@+id/boardSize"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="0.5"
+        android:layout_marginVertical="25dp"
+        android:layout_marginHorizontal="30dp"
         />
 
     <EditText
-        android:hint="Amount of mines"
+        android:hint="Amount of mines (1-360)"
         android:id="@+id/mineAmount"
         android:inputType="numberDecimal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="30dp"
+        />
+
 
     <Button
         android:layout_width="match_parent"
@@ -44,9 +47,10 @@
         android:text="Start Custom Game"
         android:onClick="clicked"
         android:layout_gravity="center"
-        android:layout_weight="0.3"
+        android:layout_marginTop="200dp"
+        android:layout_marginHorizontal="50dp"
+        android:padding="25dp"
         />
-
 
 
 </LinearLayout>

@@ -41,7 +41,7 @@ public class Cell extends AppCompatButton{
         this.setBackgroundResource(R.drawable.square_gray);
 
         // Scaling pixels to dps
-        int dps = 35;
+        int dps = 45;
         final float scale = getContext().getResources().getDisplayMetrics().density;
         int pixels = (int) (dps * scale + 0.5f);
 

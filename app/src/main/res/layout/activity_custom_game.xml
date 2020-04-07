@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CustomGameActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingTop="30dp"
+        android:text="Enter the following fields to start a custom game"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_weight="1"
+        />
+
+
+    <EditText
+        android:hint="Board Size (5-30)"
+        android:id="@+id/boardSize"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.5"
+        />
+
+    <EditText
+        android:hint="Amount of mines"
+        android:id="@+id/mineAmount"
+        android:inputType="numberDecimal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start Custom Game"
+        android:onClick="clicked"
+        android:layout_gravity="center"
+        android:layout_weight="0.3"
+        />
+
+
+
+</LinearLayout>

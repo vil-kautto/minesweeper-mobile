@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LevelSelectionActivity"></activity>
+        <activity android:name=".CustomGameActivity"></activity>
+        <activity android:name=".LevelSelectionActivity" />
         <activity android:name=".Game" />
         <activity android:name=".HighScoreActivity" />
         <activity

@@ -69,9 +69,7 @@ public class Cell extends AppCompatButton{
      * Places a mine icon to cell
      */
     public void setMineIcon() {
-        this.setText("M");
-        this.setBackgroundResource(R.drawable.square_gray_dark);
-        this.setTextColor(Color.RED);
+        this.setBackgroundResource(R.drawable.square_gray_mine);
     }
 
     /**

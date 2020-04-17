@@ -8,6 +8,12 @@ import androidx.preference.PreferenceFragmentCompat;
 
 public class SettingsActivity extends AppCompatActivity {
 
+/**
+ * LevelSelection -activity contains difficulty selection and launches the game activity
+ * @author      Ville Kautto <ville.kautto@hotmail.fi>
+ * @version     2020.04.07
+ * @since       2020.03.24
+ */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

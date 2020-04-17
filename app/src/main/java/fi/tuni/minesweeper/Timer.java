@@ -9,7 +9,12 @@ import android.widget.TextView;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-
+/**
+ * Timer service counts time from the player's first move
+ * @author      Ville Kautto <ville.kautto@hotmail.fi>
+ * @version     2020.04.07
+ * @since       2020.04.07
+ */
 public class Timer extends IntentService {
 
     public Timer() {
@@ -24,15 +29,15 @@ public class Timer extends IntentService {
         System.out.println("Timer started");
             for(int i = 0;i< 1000; i++) {
                 if(running) {
-                try  {
-                    updateTimer(i);
-                    Thread.sleep(1000);
-                } catch(Exception e) {
-                    e.printStackTrace();
+                    try {
+                        updateTimer(i);
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-    }
 
     private void updateTimer(int time) {
         Intent i = new Intent();
@@ -47,8 +52,8 @@ public class Timer extends IntentService {
         public void onReceive(Context context, Intent intent) {
             System.out.println("Broadcast received, stopping timer");
             running = false;
+
         }
     };
-
 
 }

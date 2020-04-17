@@ -2,23 +2,41 @@ package fi.tuni.minesweeper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 
 /**
  * LevelSelection -activity contains difficulty selection and launches the game activity
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.04.07
+ * @version     2020.04.21
  * @since       2020.04.07
  */
 public class LevelSelectionActivity extends AppCompatActivity {
+
+    private ServiceConnection connectService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_level_selection);
+
+        connectService = new MyConnection();
+    }
+
+    private SoundPlayer soundService;
+    private boolean soundBound = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, SoundPlayer.class);
+        bindService(intent, connectService, Context.BIND_AUTO_CREATE);
     }
 
     /**
@@ -69,18 +87,34 @@ public class LevelSelectionActivity extends AppCompatActivity {
         }
     }
 
-    MediaPlayer mediaPlayer = null;
     /**
-     * playSound creates a local broadcast to audioManager which plays a given sound
-     * Please note, that this is currently just a temporary solution, that will be changed soon
+     * playSound creates calls to SoundPlayer which plays a given sound
      * @param audioId
      */
     private void playSound(int audioId) {
-        mediaPlayer = MediaPlayer.create(this, audioId);
-        try {
-            mediaPlayer.start();
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(soundBound) {
+            soundService.playSound(audioId);
+        }
+    }
+
+    /**
+     * MyConnection maintains the connetion between SoundPlayer and this activity
+     */
+    class MyConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // After bound to SoundPlayer, cast the IBinder and get SoundService instance
+            System.out.println("Fetching soundService from binder");
+            MyBinder binder = (MyBinder) service;
+            soundService = binder.getSoundPlayer();
+            soundBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            soundBound = false;
         }
     }
 }

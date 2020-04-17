@@ -5,11 +5,14 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.media.MediaPlayer;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,6 +30,7 @@ import java.util.Random;
 public class Game extends AppCompatActivity {
 
     static Activity messenger;
+    Vibrator v;
 
     private int rows;
     private int cols;
@@ -42,13 +46,27 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         messenger = this;
+        v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
 
         Intent intent = getIntent();
         rows = intent.getIntExtra("rows", 5);
         cols = intent.getIntExtra("cols", 5);
         mines = intent.getIntExtra("mines", 5);
 
+        connectService = new MyConnection();
+
         newGame();
+    }
+
+    private ServiceConnection connectService;
+    private SoundPlayer soundService;
+    private boolean soundBound = false;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, SoundPlayer.class);
+        bindService(intent, connectService, Context.BIND_AUTO_CREATE);
     }
 
     private final int RUNNING = 0;
@@ -85,7 +103,9 @@ public class Game extends AppCompatActivity {
         TableLayout tl = findViewById(R.id.gameBoard);
         tl.removeAllViews();
         toaster("Resetting current game.");
-        playSound(R.raw.newgame);
+        if (soundBound) {
+            soundService.playSound(R.raw.newgame);
+        }
 
         gameState = RUNNING;
         System.out.println("Starting a new game");
@@ -95,6 +115,7 @@ public class Game extends AppCompatActivity {
     }
 
     private void resetStats() {
+        v.vibrate(100);
         minesFlagged = 0;
 
         timer = 0;
@@ -128,7 +149,10 @@ public class Game extends AppCompatActivity {
                         // check if current block is flagged
                         // if flagged the don't do anything
                         if(tempBoard[currentRow][currentCol].isClickable()) {
-                            playSound(R.raw.click);
+                            v.vibrate(100);
+                            if (soundBound) {
+                                SoundPlayer.playSound(R.raw.click);
+                            }
                             uncoverCell(currentRow, currentCol);
                             if(!timerStarted) {
                                 startTimer();
@@ -243,7 +267,6 @@ public class Game extends AppCompatActivity {
         TableLayout tl = findViewById(R.id.gameBoard);
         TableRow tr = new TableRow(this);
         for(int i=0;i<board.length;i++) {
-            System.out.println(i);
             for(int j = 0;j<board[i].length;j++) {
                 tr.addView(board[i][j]);
             }
@@ -351,7 +374,7 @@ public class Game extends AppCompatActivity {
     /**
      * RevealMines reveals all the mines on the board after the game has ended
      */
-    public void revealMines() {
+    private void revealMines() {
         for(int i = 0;i<board.length;i++) {
             for(int j = 0; j<board[i].length;j++) {
                 if(board[i][j].hasMine()) {
@@ -365,19 +388,13 @@ public class Game extends AppCompatActivity {
     }
 
 
-    MediaPlayer mediaPlayer = null;
     /**
      * playSound creates a local broadcast to audioManager which plays a given sound
      * Please note, that this is currently just a temporary solution, that will be changed soon
      * @param audioId
      */
     private void playSound(int audioId) {
-        mediaPlayer = MediaPlayer.create(this, audioId);
-        try {
-            mediaPlayer.start();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        soundService.playSound(audioId);
     }
 
     /**
@@ -385,14 +402,20 @@ public class Game extends AppCompatActivity {
      * It displays a different message depending on gameState
      */
     public void gameResolve() {
+        v.vibrate(300);
         stopTimer();
         revealMines();
         if(gameState == WIN) {
-            playSound(R.raw.gratz);
+            if (soundBound) {
+                soundService.playSound(R.raw.gratz);
+            }
             toaster("Congratulations, you have won the game!");
+            toaster("" + timer);
         } else if(gameState == LOSE) {
-            playSound(R.raw.explosion);
-            toaster("Boom, game over!");
+            if (soundBound) {
+                soundService.playSound(R.raw.explosion);
+            }
+            toaster("The mine blew up and your body is now full of shrapnel.");
         } else {
             System.out.println("Why am I running");
         }
@@ -444,5 +467,26 @@ public class Game extends AppCompatActivity {
      */
     public void toaster(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+
+    /**
+     * MyConnection maintains the connetion between SoundPlayer and this activity
+     */
+    class MyConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // After bound to LocalService, cast the IBinder and get SoundService instance
+            System.out.println("Fetching soundService from binder");
+            MyBinder binder = (MyBinder) service;
+            soundService = binder.getSoundPlayer();
+            soundBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            soundBound = false;
+        }
     }
 }

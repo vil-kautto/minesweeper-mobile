@@ -1,9 +1,13 @@
 package fi.tuni.minesweeper;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,22 +20,41 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * MainActivity launches other application activities
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.04.07
+ * @version     2020.04.21
  * @since       2020.03.24
  */
 public class MainActivity extends AppCompatActivity {
 
     Activity messenger;
+    private ServiceConnection connectService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         messenger = this;
         buttonAnimator();
+        connectService = new MyConnection();
     }
 
-    // Assigns and starts button animation
+    // SoundPlayer connection related variables
+    private SoundPlayer soundService;
+    private boolean soundBound = false;
+
+    /**
+     * Binds the SoundPlayer upon application start
+     */
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, SoundPlayer.class);
+        bindService(intent, connectService, Context.BIND_AUTO_CREATE);
+    }
+
+    /**
+     * Assings and starts the button animation on the main screen
+     */
     public void buttonAnimator() {
         Button btn = findViewById(R.id.playButton);
         Animation buttonAnimation =
@@ -86,22 +109,38 @@ public class MainActivity extends AppCompatActivity {
         toaster("The game was made by Ville Kautto");
     }
 
-    MediaPlayer mediaPlayer = null;
     /**
-     * playSound creates a local broadcast to audioManager which plays a given sound
-     * Please note, that this is currently just a temporary solution, that will be changed soon
-     * @param audioId
+     * Just a method for easier toaster
+     * @param text
      */
+    public void toaster(String text) {
+        Toast.makeText(messenger, text, Toast.LENGTH_LONG).show();
+    }
+
     private void playSound(int audioId) {
-        mediaPlayer = MediaPlayer.create(this, audioId);
-        try {
-            mediaPlayer.start();
-        } catch(Exception e) {
-            e.printStackTrace();
+        if(soundBound) {
+            soundService.playSound(audioId);
         }
     }
 
-    public void toaster(String text) {
-        Toast.makeText(messenger, text, Toast.LENGTH_LONG).show();
+    /**
+     * MyConnection maintains the connetion between SoundPlayer and this activity
+     */
+    class MyConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            // After bound to SoundPlayer, cast the IBinder and get SoundService instance
+            System.out.println("Fetching soundService from binder");
+            MyBinder binder = (MyBinder) service;
+            soundService = binder.getSoundPlayer();
+            soundBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            soundBound = false;
+        }
     }
 }

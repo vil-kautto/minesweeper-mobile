@@ -88,7 +88,7 @@ public class Game extends AppCompatActivity {
         setMines();
         setScene();
         TextView tv = findViewById(R.id.infoBox);
-        tv.setText("Clear the board from occupying mines");
+        tv.setText("Clear the field from occupying mines");
     }
 
     /**
@@ -411,7 +411,7 @@ public class Game extends AppCompatActivity {
      */
     public void gameResolve() {
         TextView tv = findViewById(R.id.infoBox);
-        tv.setText("Restart by clicking the circular image above");
+        tv.setText("Restart by clicking the circular image on the top");
 
         v.vibrate(300);
         revealMines();
@@ -436,6 +436,9 @@ public class Game extends AppCompatActivity {
      * StarTimer starts a timer service upon clicking the first cell
      */
     private void startTimer() {
+        TextView infobox = findViewById(R.id.infoBox);
+        infobox.setText("The numbers describe how many mines are nearby");
+
         Intent intent = new Intent(this, Timer.class);
         startService(intent);
     }
@@ -457,9 +460,19 @@ public class Game extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if(gameState != RUNNING) {
+                stopTimer();
+            }
             TextView tv = (TextView) findViewById(R.id.timer);
+            TextView infobox = findViewById(R.id.infoBox);
             timer = intent.getIntExtra("time", 0);
             tv.setText("Time: " + timer);
+            if(timer >= 20 && timer < 40) {
+                infobox.setText("Hold to place down flags that cannot be dug accidentally");
+            } else if(timer >= 40 && timer < 60) {
+                infobox.setText("The time is your score \n" +
+                        "the faster you finish, the better the score");
+            }
         }
     };
 
@@ -488,7 +501,7 @@ public class Game extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
-            // After bound to LocalService, cast the IBinder and get SoundService instance
+            // Assings a binder and the binder has an assigned SoundPlayer
             System.out.println("Fetching soundService from binder");
             MyBinder binder = (MyBinder) service;
             soundService = binder.getSoundPlayer();

@@ -82,12 +82,13 @@ public class Game extends AppCompatActivity {
      * NewGame generates a new game board and resets the stats of current game
      */
     public void newGame() {
-
         gameState = RUNNING;
         System.out.println("Starting a new game");
         board = generateBoard();
         setMines();
         setScene();
+        TextView tv = findViewById(R.id.infoBox);
+        tv.setText("Clear the board from occupying mines");
     }
 
     /**
@@ -114,14 +115,21 @@ public class Game extends AppCompatActivity {
         setScene();
     }
 
+    /**
+     * resets all the game related stats on starting a new game
+     */
     private void resetStats() {
+        TextView infobox = findViewById(R.id.infoBox);
+        infobox.setText("Clear the board from occupying mines");
+
+        stopTimer();
         v.vibrate(100);
         minesFlagged = 0;
 
         timer = 0;
         timerStarted = false;
-        TextView tv = findViewById(R.id.timer);
-        tv.setText("Timer: " + timer);
+        TextView timer = findViewById(R.id.timer);
+        timer.setText("Time: " + timer);
     }
 
     private int minesFlagged = 0;
@@ -402,9 +410,12 @@ public class Game extends AppCompatActivity {
      * It displays a different message depending on gameState
      */
     public void gameResolve() {
+        TextView tv = findViewById(R.id.infoBox);
+        tv.setText("Restart by clicking the circular image above");
+
         v.vibrate(300);
-        stopTimer();
         revealMines();
+        stopTimer();
         if(gameState == WIN) {
             if (soundBound) {
                 soundService.playSound(R.raw.gratz);

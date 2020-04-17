@@ -17,14 +17,13 @@
             android:background="#CCCCCC"
             >
 
-
             <TextView
                 android:id="@+id/mineCounter"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Mines: ??"
+                android:text="Mines: Yes"
                 android:textSize="15dp"
                 android:background="#FFFFFF"
                 />
@@ -69,11 +68,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#CCCCCC"
-                android:padding="10dp">
+                android:padding="5dp">
             </TableLayout>
 
         </ScrollView>
 
     </HorizontalScrollView>
+    <TextView
+        android:id="@+id/infoBox"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text=""
+        android:textSize="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="#FFFFFF"
+        />
 
 </LinearLayout>

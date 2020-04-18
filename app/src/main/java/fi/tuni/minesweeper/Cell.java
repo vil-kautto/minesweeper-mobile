@@ -77,7 +77,6 @@ public class Cell extends AppCompatButton{
      */
     public void setFlagIcon() {
         this.setBackgroundResource(R.drawable.square_gray_flagged);
-        this.setTextColor(Color.rgb(50, 10, 10));
     }
 
     /**

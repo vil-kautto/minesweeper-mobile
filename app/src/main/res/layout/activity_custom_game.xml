@@ -8,6 +8,16 @@
     android:orientation="vertical">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Custom game"
+        android:textSize="30dp"
+        android:layout_marginVertical="25dp"
+        android:layout_marginHorizontal="30dp"
+        />
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -40,17 +50,26 @@
         android:layout_marginHorizontal="30dp"
         />
 
+    <TextView
+        android:text="Note: Custom games are not recorded to High Scores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="30dp"
+        />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start Custom Game"
+        android:textSize="15dp"
         android:onClick="clicked"
         android:layout_gravity="center"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="30dp"
         android:layout_marginHorizontal="50dp"
         android:padding="25dp"
         />
-
 
 </LinearLayout>

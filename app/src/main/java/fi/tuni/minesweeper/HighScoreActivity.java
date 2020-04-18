@@ -1,15 +1,20 @@
 package fi.tuni.minesweeper;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.View;
+import android.widget.Button;
+
+import java.util.List;
 
 /**
  * HighScore activity keeps track of user's completed games
@@ -27,6 +32,7 @@ public class HighScoreActivity extends AppCompatActivity {
         connectService = new MyConnection();
     }
 
+    private static ScoreDatabase scoreDatabase;
     private ServiceConnection connectService;
     private SoundPlayer soundService;
     private boolean soundBound = false;
@@ -36,36 +42,81 @@ public class HighScoreActivity extends AppCompatActivity {
         super.onStart();
         Intent intent = new Intent(this, SoundPlayer.class);
         bindService(intent, connectService, Context.BIND_AUTO_CREATE);
+        scoreDatabase = Room.databaseBuilder(getApplicationContext(),
+                        ScoreDatabase.class, "scoredb")
+            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
+            .build();
     }
 
+    int color = Color.rgb(150, 150, 150);
     /**
      * Clicked handles button click events from main menu. Also opens a new activity upon clicking
      * @param v Clicked View
      */
     public void clicked(View v) {
-        Intent intent;
+        Button button;
         playSound(R.raw.click);
         switch(v.getId()) {
-            case(R.id.playButton):
-                System.out.println("play");
-                intent = new Intent(this, LevelSelectionActivity.class);
-                startActivity(intent);
+            case(R.id.buttonEasy):
+                button = findViewById(R.id.buttonEasy);
+                System.out.println("easy");
+                loadData("easy");
                 break;
-            case(R.id.highScoreButton):
-                System.out.println("High Scores");
-                intent = new Intent(this, HighScoreActivity.class);
-                startActivity(intent);
+            case(R.id.buttonMedium):
+                button = findViewById(R.id.buttonMedium);
+                System.out.println("medium");
+                loadData("medium");
                 break;
-            case(R.id.settingsButton):
-                System.out.println("Settings");
-                intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+            case(R.id.buttonHard):
+                button = findViewById(R.id.buttonHard);
+                System.out.println("hard");
+                loadData("hard");
+                break;
+            case(R.id.buttonExtreme):
+                button = findViewById(R.id.buttonExtreme);
+                System.out.println("extreme");
+                loadData("extreme");
                 break;
         }
     }
 
+    public void addScore (View v) {
+        for(int i = 10; i > 0; i--) {
+            Score score = new Score(i*10, "medium");
+            HighScoreActivity.scoreDatabase.scoreDao().addScore(score);
+        }
+        loadData("medium");
+    }
+
+    private void loadData(String difficulty) {
+        int i = 1;
+        List<Score> scoreData;
+        if(difficulty.equals("easy")) {
+            scoreData = scoreDatabase.scoreDao().getEasyScores();
+        }else if(difficulty.equals("medium")) {
+            scoreData = scoreDatabase.scoreDao().getMediumScores();
+        }else if(difficulty.equals("hard")) {
+            scoreData = scoreDatabase.scoreDao().getHardScores();
+        }else if(difficulty.equals("extreme")) {
+            scoreData = scoreDatabase.scoreDao().getExtremeScores();
+        } else {
+            System.out.println("Something went wrong");
+            scoreData = scoreDatabase.scoreDao().getAllScores();
+        }
+        for(Score score : scoreData) {
+            System.out.println(String.format("%d: %s %d", i, score.getDate(), score.getScore()));
+            i++;
+        }
+    }
+
+    public void deleteAll(View v) {
+        HighScoreActivity.scoreDatabase.scoreDao().deleteAll();
+        System.out.println("Deleted All database entries");
+    }
+
     /**
-     * playSound calls to a soundplayer which plays a given sound
+     * playSound calls to a SoundPlayer which plays a given sound
      * @param audioId
      */
     private void playSound(int audioId) {

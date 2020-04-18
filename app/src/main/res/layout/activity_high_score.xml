@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HighScoreActivity">
+    tools:context=".HighScoreActivity"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,39 +19,59 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#909090"
+        android:paddingLeft="4dp"
         >
 
-        <Button
-            android:id="@+id/buttonEasy"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Easy"
-            android:layout_marginBottom="20dp"
-            android:onClick="clicked"/>
+        <TableRow>
+            <Button
+                android:id="@+id/buttonEasy"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Easy"
+                android:layout_marginBottom="20dp"
+                android:onClick="clicked"/>
 
-        <Button
-            android:id="@+id/buttonMedium"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Easy"
-            android:layout_marginBottom="20dp"
-            android:onClick="clicked"/>
+            <Button
+                android:id="@+id/buttonMedium"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Medium"
+                android:layout_marginBottom="20dp"
+                android:onClick="clicked"/>
 
-        <Button
-            android:id="@+id/buttonHard"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Easy"
-            android:layout_marginBottom="20dp"
-            android:onClick="clicked"/>
+            <Button
+                android:id="@+id/buttonHard"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Hard"
+                android:layout_marginBottom="20dp"
+                android:onClick="clicked"/>
 
-        <Button
-            android:id="@+id/buttonExtreme"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:text="Easy"
-            android:layout_marginBottom="20dp"
-            android:onClick="clicked"/>
+            <Button
+                android:id="@+id/buttonExtreme"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="Extreme"
+                android:layout_marginBottom="20dp"
+                android:onClick="clicked"/>
+
+        </TableRow>
+
     </TableLayout>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="add"
+        android:layout_marginBottom="20dp"
+        android:onClick="addScore"/>
+
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:text="deleteAll"
+        android:layout_marginBottom="20dp"
+        android:onClick="deleteAll"/>
 
 </LinearLayout>

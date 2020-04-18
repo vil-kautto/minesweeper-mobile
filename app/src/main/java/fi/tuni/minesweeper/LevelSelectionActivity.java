@@ -53,6 +53,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("rows", 9);
                 intent.putExtra("cols", 9);
                 intent.putExtra("mines", 10);
+                intent.putExtra("difficulty", "easy");
                 startActivity(intent);
                 break;
             case(R.id.mediumButton):
@@ -61,6 +62,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("rows", 16);
                 intent.putExtra("cols", 16);
                 intent.putExtra("mines", 40);
+                intent.putExtra("difficulty", "medium");
                 startActivity(intent);
                 break;
             case(R.id.hardButton):
@@ -69,6 +71,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("rows", 20);
                 intent.putExtra("cols", 20);
                 intent.putExtra("mines", 99);
+                intent.putExtra("difficulty", "hard");
                 startActivity(intent);
                 break;
             case(R.id.extremeButton):
@@ -77,6 +80,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("rows", 20);
                 intent.putExtra("cols", 20);
                 intent.putExtra("mines", 120);
+                intent.putExtra("difficulty", "extreme");
                 startActivity(intent);
                 break;
             case(R.id.customButton):

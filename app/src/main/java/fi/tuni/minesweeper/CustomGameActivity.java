@@ -73,6 +73,7 @@ public class CustomGameActivity extends AppCompatActivity {
                 intent.putExtra("rows", boardSize);
                 intent.putExtra("cols", boardSize);
                 intent.putExtra("mines", mineAmount);
+                intent.putExtra("difficulty", "custom");
                 startActivity(intent);
             } else {
                 toaster("the ratio of mines should be lesser than 40%!");
@@ -81,6 +82,7 @@ public class CustomGameActivity extends AppCompatActivity {
 
             startActivity(intent);
         } catch (NumberFormatException e) {
+            toaster("All fields must be filled before starting a custom game");
             e.printStackTrace();
         }
     }

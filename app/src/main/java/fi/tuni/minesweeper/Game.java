@@ -2,6 +2,7 @@ package fi.tuni.minesweeper;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.room.Room;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -35,6 +36,7 @@ public class Game extends AppCompatActivity {
     private int rows;
     private int cols;
     private int mines;
+    private String difficulty;
 
     /**
      * onCreate takes parameters from LevelSelectionActivity and CustomGameActivity
@@ -52,6 +54,7 @@ public class Game extends AppCompatActivity {
         rows = intent.getIntExtra("rows", 5);
         cols = intent.getIntExtra("cols", 5);
         mines = intent.getIntExtra("mines", 5);
+        difficulty = intent.getStringExtra("difficulty");
 
         connectService = new MyConnection();
 
@@ -61,12 +64,19 @@ public class Game extends AppCompatActivity {
     private ServiceConnection connectService;
     private SoundPlayer soundService;
     private boolean soundBound = false;
+    private static ScoreDatabase scoreDatabase;
 
     @Override
     protected void onStart() {
         super.onStart();
         Intent intent = new Intent(this, SoundPlayer.class);
         bindService(intent, connectService, Context.BIND_AUTO_CREATE);
+
+        scoreDatabase = Room.databaseBuilder(getApplicationContext(),
+                ScoreDatabase.class, "scoredb")
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
+                .build();
     }
 
     private final int RUNNING = 0;
@@ -157,7 +167,6 @@ public class Game extends AppCompatActivity {
                         // check if current block is flagged
                         // if flagged the don't do anything
                         if(tempBoard[currentRow][currentCol].isClickable()) {
-                            v.vibrate(100);
                             if (soundBound) {
                                 SoundPlayer.playSound(R.raw.click);
                             }
@@ -419,6 +428,9 @@ public class Game extends AppCompatActivity {
         if(gameState == WIN) {
             if (soundBound) {
                 soundService.playSound(R.raw.gratz);
+            }
+            if(!difficulty.equals("custom")) {
+                Game.scoreDatabase.scoreDao().addScore(new Score(timer, difficulty));
             }
             toaster("Congratulations, you have won the game!");
             toaster("" + timer);

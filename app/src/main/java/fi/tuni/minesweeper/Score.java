@@ -21,9 +21,13 @@ public class Score {
     @ColumnInfo
     public String difficulty;
 
-    public Score(int score, String difficulty) {
+    @ColumnInfo
+    public String name;
+
+    public Score(int score, String difficulty, String name) {
         this.score = score;
         this.difficulty = difficulty;
+        this.name = name;
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat =
@@ -61,5 +65,13 @@ public class Score {
 
     public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

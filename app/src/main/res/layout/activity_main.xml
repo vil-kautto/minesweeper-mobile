@@ -7,17 +7,17 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <TextView
+    <ImageView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Rhinesweeper"
+        android:layout_height="100dp"
+        android:background="@drawable/title"
+
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
         android:gravity="center"
-        android:layout_marginTop="100dp"
-        android:layout_marginBottom="150dp"
         android:onClick="titleClick"
-        android:textSize="25sp"
-        style="@style/Common"
         />
 
     <Button
@@ -25,6 +25,7 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_gravity="center"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="20dp"
         android:text="play"
         android:textSize="18sp"

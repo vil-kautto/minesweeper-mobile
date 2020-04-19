@@ -90,22 +90,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Resets the title based on activity state, see titleClick method below
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        TextView tv = findViewById(R.id.title);
-        tv.setText("Rhinesweeper");
-    }
-
-    /**
      * Adds funtionality to clicking the title, probably used later
      * @param v Clicked view
      */
     public void titleClick(View v) {
-        TextView tv = findViewById(R.id.title);
-        tv.setText("Hello there");
         toaster("The game was made by Ville Kautto");
     }
 

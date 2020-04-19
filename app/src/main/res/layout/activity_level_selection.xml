@@ -14,7 +14,7 @@
         android:text="Select level difficulty"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:layout_weight="0.9"
         style="@style/Common"
         />
@@ -24,10 +24,8 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
-        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:text="Easy"
-        android:textSize="20dp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />
@@ -37,10 +35,8 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
-        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:text="Medium"
-        android:textSize="20dp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />
@@ -49,10 +45,8 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
-        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:text="Hard"
-        android:textSize="20dp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />
@@ -62,10 +56,8 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
-        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:text="Extreme"
-        android:textSize="20dp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />
@@ -75,10 +67,8 @@
         android:layout_width="200dp"
         android:layout_height="75dp"
         android:layout_weight="0.01"
-        android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:text="Custom"
-        android:textSize="20dp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />

@@ -17,20 +17,58 @@
 
     <!-- Common text customization -->
     <style name="Common">
+        <item name="android:textColor">#FFFFFF</item>
         <item name="android:fontFamily">@font/pixel_font</item>
         <item name="fontFamily">@font/pixel_font</item>
         <item name="android:textStyle">normal</item>
+
+        <!-- Text Shadow Customization -->
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowRadius">8</item>
     </style>
 
     <!-- Common button customization -->
     <style name="CommonButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">#1a237e</item>
         <item name="colorControlHighlight">#673ab7</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:background">@drawable/buttonshape</item>
+
+        <!-- Basic Button Text Customization -->
+        <item name="android:fontFamily">@font/pixel_font</item>
+        <item name="fontFamily">@font/pixel_font</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:textStyle">normal</item>
+
+        <!-- Text Shadow Customization -->
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">1.5</item>
+
+    </style>
+
+    <!-- Common button customization -->
+    <style name="SmallButton" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">#1a237e</item>
+        <item name="colorControlHighlight">#673ab7</item>
+        <item name="android:paddingTop">10dp</item>
 
         <!-- Button Text Customization -->
         <item name="android:fontFamily">@font/pixel_font</item>
         <item name="fontFamily">@font/pixel_font</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginBottom">20dp</item>
         <item name="android:textStyle">normal</item>
+
+        <!-- Text Shadow Customization -->
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowDx">1.5</item>
+        <item name="android:shadowDy">1.5</item>
+        <item name="android:shadowRadius">1.5</item>
     </style>
 
 </resources>

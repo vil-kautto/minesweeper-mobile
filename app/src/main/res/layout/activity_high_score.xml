@@ -11,17 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="High Scores"
-        android:layout_gravity="center"
-        android:textSize="30dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="40dp"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
         style="@style/Common"
         />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
+        android:paddingLeft="1dp"
         >
 
         <TableRow>
@@ -30,18 +31,24 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="Easy"
-                android:layout_marginBottom="20dp"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
                 android:onClick="clicked"
-                style="@style/CommonButton"/>
+                style="@style/SmallButton"
+                />
 
             <Button
                 android:id="@+id/buttonMedium"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="Medium"
-                android:layout_marginBottom="20dp"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
                 android:onClick="clicked"
-                style="@style/CommonButton"/>
+                style="@style/SmallButton"
+                />
 
 
             <Button
@@ -49,18 +56,24 @@
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="Hard"
-                android:layout_marginBottom="20dp"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
                 android:onClick="clicked"
-                style="@style/CommonButton"/>
+                style="@style/SmallButton"
+                />
 
             <Button
                 android:id="@+id/buttonExtreme"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:text="Extreme"
-                android:layout_marginBottom="20dp"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
                 android:onClick="clicked"
-                style="@style/CommonButton"/>
+                style="@style/SmallButton"
+                />
 
         </TableRow>
 

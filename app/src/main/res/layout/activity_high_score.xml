@@ -8,13 +8,14 @@
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="High Scores"
         android:layout_gravity="center"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
+        style="@style/Common"
         />
 
     <TableLayout
@@ -30,7 +31,8 @@
                 android:layout_width="match_parent"
                 android:text="Easy"
                 android:layout_marginBottom="20dp"
-                android:onClick="clicked"/>
+                android:onClick="clicked"
+                style="@style/CommonButton"/>
 
             <Button
                 android:id="@+id/buttonMedium"
@@ -38,7 +40,9 @@
                 android:layout_width="match_parent"
                 android:text="Medium"
                 android:layout_marginBottom="20dp"
-                android:onClick="clicked"/>
+                android:onClick="clicked"
+                style="@style/CommonButton"/>
+
 
             <Button
                 android:id="@+id/buttonHard"
@@ -46,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:text="Hard"
                 android:layout_marginBottom="20dp"
-                android:onClick="clicked"/>
+                android:onClick="clicked"
+                style="@style/CommonButton"/>
 
             <Button
                 android:id="@+id/buttonExtreme"
@@ -54,7 +59,8 @@
                 android:layout_width="match_parent"
                 android:text="Extreme"
                 android:layout_marginBottom="20dp"
-                android:onClick="clicked"/>
+                android:onClick="clicked"
+                style="@style/CommonButton"/>
 
         </TableRow>
 
@@ -77,13 +83,16 @@
         android:layout_width="match_parent"
         android:text="add"
         android:layout_marginBottom="20dp"
-        android:onClick="addScore"/>
+        android:onClick="addScore"
+        style="@style/Common"
+        />
 
     <Button
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="deleteAll"
         android:layout_marginBottom="20dp"
-        android:onClick="deleteAll"/>
+        android:onClick="deleteAll"
+        style="@style/Common"/>
 
 </LinearLayout>

@@ -14,8 +14,9 @@
         android:text="Select level difficulty"
         android:gravity="center"
         android:layout_marginTop="20dp"
-        android:textSize="40dp"
+        android:textSize="25dp"
         android:layout_weight="0.9"
+        style="@style/Common"
         />
 
     <Button
@@ -28,6 +29,7 @@
         android:text="Easy"
         android:textSize="20dp"
         android:onClick="clicked"
+        style="@style/CommonButton"
         />
 
     <Button
@@ -40,6 +42,7 @@
         android:text="Medium"
         android:textSize="20dp"
         android:onClick="clicked"
+        style="@style/CommonButton"
         />
     <Button
         android:id="@+id/hardButton"
@@ -51,6 +54,7 @@
         android:text="Hard"
         android:textSize="20dp"
         android:onClick="clicked"
+        style="@style/CommonButton"
         />
 
     <Button
@@ -63,6 +67,7 @@
         android:text="Extreme"
         android:textSize="20dp"
         android:onClick="clicked"
+        style="@style/CommonButton"
         />
 
     <Button
@@ -75,6 +80,7 @@
         android:text="Custom"
         android:textSize="20dp"
         android:onClick="clicked"
+        style="@style/CommonButton"
         />
 
 

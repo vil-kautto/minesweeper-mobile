@@ -26,6 +26,7 @@
                 android:text="Mines: Yes"
                 android:textSize="20dp"
                 android:background="#FFFFFF"
+                style="@style/Common"
                 />
 
             <ImageButton
@@ -46,6 +47,7 @@
                 android:text="Time: 0"
                 android:textSize="20dp"
                 android:background="#FFFFFF"
+                style="@style/Common"
                 />
 
         </TableRow>
@@ -81,9 +83,10 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text=""
-        android:textSize="20dp"
+        android:textSize="15dp"
         android:layout_marginHorizontal="20dp"
         android:background="#FFFFFF"
+        style="@style/Common"
         />
 
 </LinearLayout>

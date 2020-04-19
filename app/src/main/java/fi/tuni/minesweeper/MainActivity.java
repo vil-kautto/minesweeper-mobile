@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         TextView tv = findViewById(R.id.title);
-        tv.setText("Minesweeper!");
+        tv.setText("Rhinesweeper");
     }
 
     /**
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * MyConnection maintains the connetion between SoundPlayer and this activity
+     * MyConnection maintains the connection between SoundPlayer and this activity
      */
     class MyConnection implements ServiceConnection {
 

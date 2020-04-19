@@ -15,6 +15,7 @@
         android:textSize="30dp"
         android:layout_marginVertical="25dp"
         android:layout_marginHorizontal="30dp"
+        style="@style/Common"
         />
 
     <TextView
@@ -26,6 +27,7 @@
         android:textStyle="bold"
         android:layout_marginVertical="25dp"
         android:layout_marginHorizontal="30dp"
+        style="@style/Common"
         />
 
     <EditText
@@ -37,6 +39,7 @@
         android:layout_gravity="center"
         android:layout_marginVertical="25dp"
         android:layout_marginHorizontal="30dp"
+        style="@style/Common"
         />
 
     <EditText
@@ -48,6 +51,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:layout_marginHorizontal="30dp"
+        style="@style/Common"
+
         />
 
     <TextView
@@ -70,6 +75,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginHorizontal="50dp"
         android:padding="25dp"
+        style="@style/CommonButton"
         />
 
 </LinearLayout>

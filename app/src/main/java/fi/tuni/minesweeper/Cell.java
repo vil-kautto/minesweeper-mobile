@@ -127,8 +127,6 @@ public class Cell extends AppCompatButton{
                 updateNumber();
             }
         }
-
-
     }
 
     /**
@@ -178,6 +176,13 @@ public class Cell extends AppCompatButton{
      */
     public void plantMine() {
         isMine = true;
+    }
+
+    /**
+     * Plants a mine to specified cell
+     */
+    public void triggerMine() {
+        this.setBackgroundResource(R.drawable.square_gray_mine_triggered);
     }
 
     /**

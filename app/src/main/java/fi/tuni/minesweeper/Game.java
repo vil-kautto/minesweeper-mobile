@@ -40,7 +40,7 @@ public class Game extends AppCompatActivity {
 
     /**
      * onCreate takes parameters from LevelSelectionActivity and CustomGameActivity
-     * the parameters store game creation related data (rows, cols, mines)
+     * the parameters store game creation related data (rows, cols, mines and difficulty)
      * @param savedInstanceState stored parameters from another activities
      */
     @Override
@@ -66,6 +66,10 @@ public class Game extends AppCompatActivity {
     private boolean soundBound = false;
     private static ScoreDatabase scoreDatabase;
 
+    /**
+     * OnStart binds and starts the AudioService.
+     * Also creates an instance of scoreDatabase for storing scores to High Scores
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -89,7 +93,7 @@ public class Game extends AppCompatActivity {
     private boolean timerStarted = false;
 
     /**
-     * NewGame generates a new game board and resets the stats of current game
+     * NewGame generates a new game for the first game of the session
      */
     public void newGame() {
         gameState = RUNNING;
@@ -98,11 +102,12 @@ public class Game extends AppCompatActivity {
         setMines();
         setScene();
         TextView tv = findViewById(R.id.infoBox);
-        tv.setText("Clear the field from occupying mines");
+        tv.setText("Clear the field without triggering the mines");
     }
 
     /**
-     * Resets current progress and starts a new game via button in-game
+     * this newGame accepts calls from a button in-game screen
+     * it resets the current progress and starts a new game upon activating
      * @param v ImageButton's view
      */
     public void newGame(View v) {
@@ -126,11 +131,11 @@ public class Game extends AppCompatActivity {
     }
 
     /**
-     * resets all the game related stats on starting a new game
+     * Incidentally resetStats resets all the game related stats on starting a new game
      */
     private void resetStats() {
         TextView infobox = findViewById(R.id.infoBox);
-        infobox.setText("Clear the board from occupying mines");
+        infobox.setText("Clear the field without triggering the mines");
 
         stopTimer();
         v.vibrate(100);
@@ -139,7 +144,7 @@ public class Game extends AppCompatActivity {
         timer = 0;
         timerStarted = false;
         TextView timer = findViewById(R.id.timer);
-        timer.setText("Time: " + timer);
+        timer.setText("Time: 0");
     }
 
     private int minesFlagged = 0;
@@ -179,7 +184,9 @@ public class Game extends AppCompatActivity {
                             // Mine check on clicked cell
                             if(tempBoard[currentRow][currentCol].hasMine()) {
                                 gameState = LOSE;
+                                tempBoard[currentRow][currentCol].triggerMine();
                                 gameResolve();
+
                             }
 
                             // Checking for win condition
@@ -429,8 +436,9 @@ public class Game extends AppCompatActivity {
             if (soundBound) {
                 soundService.playSound(R.raw.gratz);
             }
+            String name = "Pekka";
             if(!difficulty.equals("custom")) {
-                Game.scoreDatabase.scoreDao().addScore(new Score(timer, difficulty));
+                Game.scoreDatabase.scoreDao().addScore(new Score(timer, difficulty, name));
             }
             toaster("Congratulations, you have won the game!");
             toaster("" + timer);

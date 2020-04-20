@@ -4,8 +4,8 @@ import android.os.Binder;
 
 /**
  * Binds and retuns SoundPlayers to requesting ServiceConnectors
- * @since 2020.04.21
- * @version 2020.04.21
+ * @since 2020.04.22
+ * @version 2020.04.22
  * @author Ville Kautto
  */
 public class MyBinder extends Binder {

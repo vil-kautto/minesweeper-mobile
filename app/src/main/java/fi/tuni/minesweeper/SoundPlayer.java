@@ -1,11 +1,12 @@
 package fi.tuni.minesweeper;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
-import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 
@@ -21,7 +22,6 @@ public class SoundPlayer extends Service {
     private IBinder myBinder;
     @Override
     public void onCreate() {
-        System.out.println("Bind created?");
         myBinder = new MyBinder(this);
     }
 
@@ -32,7 +32,6 @@ public class SoundPlayer extends Service {
 
     private AudioManager audioManager;
     private static SoundPool soundPool = null;
-    private int soundId;
     private static boolean loaded = false;
     private static float volume = 1;
 
@@ -42,12 +41,20 @@ public class SoundPlayer extends Service {
     private static int soundVictory;
     private static int soundRestart;
 
+    //Setting manager
+    private SharedPreferences settings;
+    private final String SETTINGS = "UserSettings";
+    private static boolean soundStatus;
+
     private void audioSetup() {
+        settings = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        soundStatus = settings.getBoolean("sound", true);
         System.out.println("Preparing audio manager");
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
         float currentVolumeIndex = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         float maxVolumeIndex  = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         this.volume = currentVolumeIndex / maxVolumeIndex;
+
 
         // For Android SDK >= 21
         if (Build.VERSION.SDK_INT >= 21 ) {
@@ -82,7 +89,7 @@ public class SoundPlayer extends Service {
     }
 
     public static void playSound(int audioId) {
-        if(loaded) {
+        if(loaded && soundStatus) {
             int streamId;
             if (audioId == R.raw.click) {
                 streamId = soundPool.play(soundClick, volume, volume, 1, 0, 1f);
@@ -95,4 +102,9 @@ public class SoundPlayer extends Service {
             }
         }
     }
+
+    public void toggleSound(boolean status) {
+        soundStatus = status;
+    }
+
 }

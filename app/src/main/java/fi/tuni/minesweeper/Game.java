@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Vibrator;
@@ -25,7 +26,7 @@ import java.util.Random;
 /**
  * Game -activity contains the main functionality for Minesweeper
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.04.07
+ * @version     2020.04.22
  * @since       2020.03.24
  */
 public class Game extends AppCompatActivity {
@@ -66,6 +67,10 @@ public class Game extends AppCompatActivity {
     private boolean soundBound = false;
     private static ScoreDatabase scoreDatabase;
 
+    SharedPreferences settings;
+    private static final String SETTINGS = "UserSettings";
+    private boolean vibrationStatus;
+
     /**
      * OnStart binds and starts the AudioService.
      * Also creates an instance of scoreDatabase for storing scores to High Scores
@@ -81,7 +86,12 @@ public class Game extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
                 .build();
+
+        settings = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        vibrationStatus = settings.getBoolean("vibration", true);
+
     }
+
 
     private final int RUNNING = 0;
     private final int WIN = 1;
@@ -134,11 +144,11 @@ public class Game extends AppCompatActivity {
      * Incidentally resetStats resets all the game related stats on starting a new game
      */
     private void resetStats() {
+        vibrate();
         TextView infobox = findViewById(R.id.infoBox);
         infobox.setText("Clear the field without triggering the mines");
-
         stopTimer();
-        v.vibrate(100);
+
         minesFlagged = 0;
 
         timer = 0;
@@ -218,6 +228,7 @@ public class Game extends AppCompatActivity {
                                     tempBoard[currentRow][currentCol].setFlagged(true);
                                     minesFlagged++;
                                     updateMineCountDisplay();
+                                    vibrate();
                                 }
                             }
                             // case 2. set flagged to question mark
@@ -421,15 +432,21 @@ public class Game extends AppCompatActivity {
         soundService.playSound(audioId);
     }
 
+    private void vibrate() {
+        if(vibrationStatus) {
+            v.vibrate(100);
+        }
+    }
+
     /**
      * gameResolve is called when the game is over
      * It displays a different message depending on gameState
      */
-    public void gameResolve() {
+    private void gameResolve() {
         TextView tv = findViewById(R.id.infoBox);
         tv.setText("Restart by clicking the circular image on the top");
 
-        v.vibrate(300);
+        vibrate();
         revealMines();
         stopTimer();
         if(gameState == WIN) {
@@ -503,6 +520,7 @@ public class Game extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(Game.this).registerReceiver(broadcastReceiver, new IntentFilter("TIMER"));
+        stopTimer();
     }
 
     /**

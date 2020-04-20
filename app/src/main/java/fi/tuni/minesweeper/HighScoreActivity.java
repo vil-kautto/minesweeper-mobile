@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.Gravity;
@@ -22,7 +23,7 @@ import java.util.List;
 /**
  * HighScore activity keeps track of user's completed games
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.03.24
+ * @version     2020.04.22
  * @since       2020.03.24
  */
 public class HighScoreActivity extends AppCompatActivity {
@@ -100,6 +101,8 @@ public class HighScoreActivity extends AppCompatActivity {
         loadData(scoreData);
     }
 
+
+
     private int grey;
     private int darkGrey;
 
@@ -112,6 +115,7 @@ public class HighScoreActivity extends AppCompatActivity {
         int pixels = (int) (dps * scale + 0.5f);
 
         int i = 1;
+
         if(scoreData.isEmpty()) {
             TextView tv = new TextView(this);
             tv.setText("No high scores set yet, play to set them");
@@ -159,11 +163,6 @@ public class HighScoreActivity extends AppCompatActivity {
                 i++;
             }
         }
-    }
-
-    public void deleteAll(View v) {
-        HighScoreActivity.scoreDatabase.scoreDao().deleteAll();
-        System.out.println("Deleted All database entries");
     }
 
     /**

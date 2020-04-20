@@ -21,6 +21,20 @@
         <item name="android:fontFamily">@font/pixel_font</item>
         <item name="fontFamily">@font/pixel_font</item>
         <item name="android:textStyle">normal</item>
+        <item name="android:gravity">center</item>
+
+        <!-- Text Shadow Customization -->
+        <item name="android:shadowColor">#000000</item>
+        <item name="android:shadowRadius">8</item>
+    </style>
+
+    <!-- Common text customization -->
+    <style name="CommonSettings">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">@font/pixel_font</item>
+        <item name="fontFamily">@font/pixel_font</item>
+        <item name="android:textStyle">normal</item>
 
         <!-- Text Shadow Customization -->
         <item name="android:shadowColor">#000000</item>

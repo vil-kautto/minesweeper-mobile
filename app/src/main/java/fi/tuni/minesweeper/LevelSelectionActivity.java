@@ -14,7 +14,7 @@ import android.view.View;
 /**
  * LevelSelection -activity contains difficulty selection and launches the game activity
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.04.21
+ * @version     2020.04.22
  * @since       2020.04.07
  */
 public class LevelSelectionActivity extends AppCompatActivity {

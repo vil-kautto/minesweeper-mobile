@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Game">
+    tools:context=".Game"
+    android:background="@drawable/board">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -13,8 +14,8 @@
 
         <TableRow
             android:stretchColumns="*"
-            android:padding="5dp"
-            android:background="#CCCCCC"
+            android:paddingTop="1dp"
+            android:paddingBottom="1dp"
             >
 
             <TextView
@@ -25,7 +26,6 @@
                 android:gravity="center"
                 android:text="Mines: Yes"
                 android:textSize="20dp"
-                android:background="#FFFFFF"
                 style="@style/Common"
                 />
 
@@ -46,9 +46,9 @@
                 android:layout_weight="1"
                 android:text="Time: 0"
                 android:textSize="20dp"
-                android:background="#FFFFFF"
                 style="@style/Common"
-                android:paddingLeft="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 />
 
         </TableRow>
@@ -65,14 +65,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <TableLayout
-                android:stretchColumns="*"
-                android:id="@+id/gameBoard"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#CCCCCC"
-                android:padding="5dp">
-            </TableLayout>
+                <TableLayout
+                    android:stretchColumns="*"
+                    android:id="@+id/gameBoard"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="5dp"
+                    >
+                </TableLayout>
 
         </ScrollView>
 
@@ -82,11 +82,10 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="1"
-        android:gravity="center"
         android:text=""
         android:textSize="15dp"
-        android:layout_marginHorizontal="20dp"
-        android:background="#FFFFFF"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         style="@style/Common"
         />
 

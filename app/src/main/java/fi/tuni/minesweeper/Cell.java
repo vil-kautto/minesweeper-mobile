@@ -11,7 +11,7 @@ import androidx.appcompat.widget.AppCompatImageButton;
 /**
  * Cell object base used in minesweeper's game -activity
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
- * @version     2020.04.07
+ * @version     2020.04.22
  * @since       2020.03.24
  */
 public class Cell extends AppCompatButton{

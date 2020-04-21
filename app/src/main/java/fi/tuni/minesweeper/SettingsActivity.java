@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.LayoutInflater;
@@ -32,6 +33,10 @@ public class SettingsActivity extends AppCompatActivity {
     SharedPreferences settings;
     private static final String SETTINGS = "UserSettings";
 
+    /**
+     * preparing under the hood running systems (database, settings, soundService)
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +59,7 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     /**
-     * Binds the SoundPlayer upon application start
+     * onStart binds the SoundPlayer upon application start and fetches settings and database
      */
     @Override
     protected void onStart() {
@@ -76,46 +81,84 @@ public class SettingsActivity extends AppCompatActivity {
 
         soundSwitch.setChecked(soundStatus);
         vibrationSwitch.setChecked(vibrationStatus);
+
     }
 
     SharedPreferences.Editor editor;
 
+
+    /**
+     * Settings are saved on exiting the activity
+     */
     @Override
-    protected void onStop() {
+    protected void onPause() {
         editor = settings.edit();
         editor.putBoolean("sound", soundStatus);
         editor.putBoolean("vibration", vibrationStatus);
         editor.commit();
 
         System.out.println("sound:" + soundStatus + ", vibration:" + vibrationStatus);
-        super.onStop();
+        toaster("Settings saved Successfully");
+        super.onPause();
     }
 
-
-
+    /**
+     * responds to user changing the setttings
+     * After the user changes a setting, the state of given setting will be updated
+     * the user will be notified about the setting change
+     * @param v
+     */
     public void clicked(View v) {
-        playSound(R.raw.click);
         switch(v.getId()) {
             case R.id.soundsStatus:
                 soundStatus = !soundStatus;
                 System.out.println("Soundstatus was changed to " + soundStatus);
                 soundService.toggleSound(soundStatus);
+
+                // Feedback after user has toggled
+                if(soundStatus) {
+                    toaster("Sounds enabled");
+                }else if(!soundStatus) {
+                    toaster("Sounds disabled");
+                }
+
+                playSound(R.raw.click);
                 break;
             case R.id.vibrationStatus:
                 vibrationStatus = !vibrationStatus;
                 System.out.println("VibrationStatus was changed to " + vibrationStatus);
+                playSound(R.raw.click);
+
+                // Feedback after user has toggled
+                if(vibrationStatus) {
+                    toaster("Vibration enabled");
+                }else if(!vibrationStatus) {
+                    toaster("Vibration disabled");
+                }
                 break;
         }
     }
 
+    private boolean failsafeDisabled = false;
+    private int failsafeCount = 5;
+
     public void deleteScoreData(View v) {
-        SettingsActivity.scoreDatabase.scoreDao().deleteAll();
-        System.out.println("Deleted All database entries");
-        toaster("Deleted all High Scores");
+        if(failsafeCount == 0) {
+            failsafeDisabled = true;
+        }
+        if(failsafeDisabled) {
+            SettingsActivity.scoreDatabase.scoreDao().deleteAll();
+            System.out.println("Deleted All database entries");
+            toaster("Deleted all High Scores");
+        }else {
+            toaster("Resets permanently all data. Tap " + failsafeCount + " times to confirm the deletion");
+            failsafeCount--;
+        }
+
     }
 
     /**
-     * Just a method for easier toaster
+     * Just a method for easier toasting
      * @param text
      */
     public void toaster(String text) {

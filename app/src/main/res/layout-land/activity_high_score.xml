@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HighScoreActivity"
+    android:orientation="vertical"
+    android:background="@drawable/back"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="High Scores"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="10dp"
+        style="@style/Common"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        >
+
+            <Button
+                android:id="@+id/buttonEasy"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Easy"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
+                android:onClick="clicked"
+                style="@style/SmallButton"
+                />
+
+            <Button
+                android:id="@+id/buttonMedium"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Medium"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
+                android:onClick="clicked"
+                style="@style/SmallButton"
+                />
+
+
+            <Button
+                android:id="@+id/buttonHard"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Hard"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
+                android:onClick="clicked"
+                style="@style/SmallButton"
+                />
+
+            <Button
+                android:id="@+id/buttonExtreme"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:text="Extreme"
+                android:textSize="12sp"
+                android:layout_marginBottom="15dp"
+                android:paddingTop="15dp"
+                android:onClick="clicked"
+                style="@style/SmallButton"
+                />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <TableLayout
+            android:id="@+id/scoreScreen"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="140dp"
+            android:layout_marginRight="140dp"
+            style="@style/Common"
+            >
+
+        </TableLayout>
+
+    </ScrollView>
+
+</LinearLayout>

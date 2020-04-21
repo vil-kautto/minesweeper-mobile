@@ -94,7 +94,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
     public void addScore (View v) {
         for(int i = 10; i > 0; i--) {
-            Score score = new Score(i*10, "medium", "Test");
+            Score score = new Score(i*10, "medium");
             HighScoreActivity.scoreDatabase.scoreDao().addScore(score);
         }
         List<Score> scoreData = scoreDatabase.scoreDao().getMediumScores();
@@ -114,27 +114,27 @@ public class HighScoreActivity extends AppCompatActivity {
         final float scale = this.getResources().getDisplayMetrics().density;
         int pixels = (int) (dps * scale + 0.5f);
 
-        int i = 1;
+        grey = Color.rgb(150,150,150);
+        darkGrey = Color.rgb(120,120,120);
 
         if(scoreData.isEmpty()) {
             TextView tv = new TextView(this);
             tv.setText("No high scores set yet, play to set them");
-            tl.setBackgroundColor(Color.WHITE);
             tv.setTextSize(pixels);
+
             tv.setGravity(Gravity.CENTER);
+            tv.setTextColor(Color.WHITE);
+            tl.setBackgroundColor(grey);
             tl.addView(tv);
         } else {
             tl.setBackgroundColor(Color.BLACK);
-            tl.setPadding(1,1,1,1);
-
-            grey = Color.rgb(150,150,150);
-            darkGrey = Color.rgb(120,120,120);
+            tl.setPadding(2, 2, 2, 2);
 
             TextView infotv = new TextView(this);
             TableRow inforow = new TableRow(this);
 
-            String infodata = String.format("%-10s%-10s%-15s%-20s",
-                    "#", "Time:", "Name:", "Date:");
+            String infodata = String.format("%-20s%-20s%-20s",
+                    "#", "Time:", "Date:");
             System.out.println(infodata);
             infotv.setText(infodata);
             infotv.setTextSize(pixels);
@@ -142,12 +142,14 @@ public class HighScoreActivity extends AppCompatActivity {
             inforow.addView(infotv);
             tl.addView(inforow);
 
+            int i = 1;
+
             for(Score score : scoreData) {
                 TableRow tr = new TableRow(this);
                 TextView tv = new TextView(this);
 
-                String data = String.format("%-10s %-10s %-15s %-20s",
-                        i + ":", score.getScore() + "  ", score.getName(),  score.getDate());
+                String data = String.format("%-20s %-20s %-20s",
+                        i + ":", score.getScore() + "  ",  score.getDate());
                 System.out.println(data);
                 tv.setText(data);
                 tv.setTextSize(pixels);

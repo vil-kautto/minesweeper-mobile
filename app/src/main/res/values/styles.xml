@@ -28,7 +28,7 @@
         <item name="android:shadowRadius">8</item>
     </style>
 
-    <!-- Common text customization -->
+    <!-- Common Setting text customization -->
     <style name="CommonSettings">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">#FFFFFF</item>
@@ -64,7 +64,7 @@
 
     </style>
 
-    <!-- Common button customization -->
+    <!-- Small button customization -->
     <style name="SmallButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">#1a237e</item>
         <item name="colorControlHighlight">#673ab7</item>

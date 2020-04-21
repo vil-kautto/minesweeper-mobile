@@ -6,7 +6,7 @@
     <solid
         android:color="@color/colorAccent"
         />
-    <size
+    <sizea
         android:width="270dp"
         android:height="30dp"
         />

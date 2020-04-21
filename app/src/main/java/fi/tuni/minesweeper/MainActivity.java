@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         messenger = this;
         buttonAnimator();
+        titleAnimator();
         connectService = new MyConnection();
     }
 
@@ -58,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
         Animation buttonAnimation =
                 AnimationUtils.loadAnimation(this, R.anim.button_bounce);
         btn.startAnimation(buttonAnimation);
+    }
+
+    /**
+     * Assings and starts the button animation on the main screen
+     */
+    public void titleAnimator() {
+        ImageView title = findViewById(R.id.title);
+        Animation buttonAnimation =
+                AnimationUtils.loadAnimation(this, R.anim.title_tilt);
+        title.startAnimation(buttonAnimation);
 
     }
 

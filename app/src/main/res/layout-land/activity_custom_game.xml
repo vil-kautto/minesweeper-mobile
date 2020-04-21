@@ -12,7 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp"
         android:orientation="vertical">
@@ -23,7 +23,7 @@
             android:layout_gravity="center"
             android:text="Custom game"
             android:textSize="25sp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="5dp"
             android:padding="10dp"
             style="@style/Common"
             />
@@ -35,7 +35,7 @@
             android:text="Enter the following fields to start a custom game"
             android:textSize="13sp"
             android:textStyle="bold"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:padding="10dp"
             style="@style/Common"
             />
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:textSize="12sp"
             style="@style/CommonSettings"
             />
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="12sp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             style="@style/CommonSettings"
             />
 
@@ -70,21 +70,19 @@
             android:layout_height="wrap_content"
             android:textSize="13sp"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="5dp"
             android:padding="10dp"
             style="@style/Common"
             />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="60dp"
             android:text="Start Custom Game"
             android:textSize="12sp"
             android:onClick="clicked"
             android:layout_gravity="center"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
             android:padding="25dp"
             style="@style/CommonButton"
             />

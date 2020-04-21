@@ -26,7 +26,6 @@ public class Timer extends IntentService {
     private boolean running = false;
     @Override
     protected void onHandleIntent(Intent intent) {
-
         running = true;
         System.out.println("Timer started");
         for (time = 0; time < 1000; time++) {
@@ -41,6 +40,10 @@ public class Timer extends IntentService {
         }
     }
 
+    /**
+     * UpdateTimer Sends local broadcasts to the game activity
+     * @param time
+     */
     private void updateTimer(int time) {
         Intent i = new Intent();
         i.putExtra("time", time);

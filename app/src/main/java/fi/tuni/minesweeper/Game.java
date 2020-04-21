@@ -429,9 +429,14 @@ public class Game extends AppCompatActivity {
      * @param audioId
      */
     private void playSound(int audioId) {
-        soundService.playSound(audioId);
+        if(soundBound) {
+            soundService.playSound(audioId);
+        }
     }
 
+    /**
+     * vibrate checks the vibration status and vibrates the device accordingly
+     */
     private void vibrate() {
         if(vibrationStatus) {
             v.vibrate(100);
@@ -453,9 +458,8 @@ public class Game extends AppCompatActivity {
             if (soundBound) {
                 soundService.playSound(R.raw.gratz);
             }
-            String name = "Pekka";
             if(!difficulty.equals("custom")) {
-                Game.scoreDatabase.scoreDao().addScore(new Score(timer, difficulty, name));
+                Game.scoreDatabase.scoreDao().addScore(new Score(timer, difficulty));
             }
             toaster("Congratulations, you have won the game!");
             toaster("" + timer);
@@ -514,7 +518,7 @@ public class Game extends AppCompatActivity {
     };
 
     /**
-     * OnResume handles incoming requests
+     * OnResume handles incoming requests from Timer
      */
     @Override
     protected void onResume() {

@@ -10,6 +10,12 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.IBinder;
 
+/**
+ * SoundPlayer object prepares an audio player and plays sound files on command
+ * @author Ville Kautto <ville.kautto@hotmail.fi>
+ * @version 2020.04.22
+ * @since 2020.04.22
+ */
 public class SoundPlayer extends Service {
 
     @Override

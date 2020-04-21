@@ -94,13 +94,4 @@
 
     </TableLayout>
 
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="add"
-        android:layout_marginBottom="20dp"
-        android:onClick="addScore"
-        style="@style/Common"
-        />
-
 </LinearLayout>

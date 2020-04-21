@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
 public class CustomGameActivity extends AppCompatActivity {
 
     @Override
@@ -22,10 +23,14 @@ public class CustomGameActivity extends AppCompatActivity {
         connectService = new MyConnection();
     }
 
+    // Sound player variables
     private ServiceConnection connectService;
     private SoundPlayer soundService;
     private boolean soundBound = false;
 
+    /**
+     * onStart prepares soundPlayer
+     */
     @Override
     protected void onStart() {
         super.onStart();

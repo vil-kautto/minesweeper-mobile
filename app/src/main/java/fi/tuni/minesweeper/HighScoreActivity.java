@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.Gravity;
@@ -96,20 +95,14 @@ public class HighScoreActivity extends AppCompatActivity {
         }
     }
 
-    // test Method, remove upon release
-    public void addScore (View v) {
-        for(int i = 10; i > 0; i--) {
-            Score score = new Score(i*10, "medium");
-            HighScoreActivity.scoreDatabase.scoreDao().addScore(score);
-        }
-        List<Score> scoreData = scoreDatabase.scoreDao().getMediumScores();
-        loadData(scoreData);
-    }
-
     // color variables
     private int grey;
     private int darkGrey;
 
+    /**
+     * Displays high score information depending on gathered data
+     * @param scoreData data gathered from database
+     */
     private void loadData(List<Score> scoreData) {
         TableLayout tl = findViewById(R.id.scoreScreen);
         tl.removeAllViews();

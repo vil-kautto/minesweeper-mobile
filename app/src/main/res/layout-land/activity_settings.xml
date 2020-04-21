@@ -34,7 +34,6 @@
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:onClick="clicked"
-            android:background="#FFFFFF"
             android:switchTextAppearance="@font/pixel_font"
             android:font="@font/pixel_font"
             style="@style/CommonSettings"

@@ -27,16 +27,19 @@
                 android:gravity="center"
                 android:text="Mines: Yes"
                 android:textSize="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 style="@style/Common"
                 />
 
             <ImageButton
                 android:id="@+id/restart"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="60dp"
                 android:gravity="center"
-                android:background="@drawable/game_state_normal"
+                android:background="@drawable/restart_button_wide"
                 android:onClick="newGame"
+                android:padding="20dp"
                 />
 
             <TextView

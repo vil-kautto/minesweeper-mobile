@@ -9,6 +9,9 @@ import java.util.Date;
 
 /**
  * Database's Score object, used in saving scores to database
+ * @author Ville Kautto <ville.kautto@hotmail.fi>
+ * @version 2020.04.22
+ * @since 2020.04.22
  */
 @Entity(tableName = "scores")
 public class Score {
@@ -39,7 +42,7 @@ public class Score {
 
         Date currentDate = new Date();
         SimpleDateFormat dateFormat =
-                new SimpleDateFormat("dd.MM.yyyy hh:mm");
+                new SimpleDateFormat("dd.MM.yyyy HH:mm ");
         this.date = dateFormat.format(currentDate);
     }
 

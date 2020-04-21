@@ -105,6 +105,9 @@ public class Cell extends AppCompatButton{
      */
     public void clearAllIcons() {
         this.setText("");
+        this.isFlagged = false;
+        this.isQuestionMarked = false;
+
     }
 
     /**
@@ -130,7 +133,7 @@ public class Cell extends AppCompatButton{
             }
 
             // Check for a mine, and update a icon if it is
-            if(hasMine()) {
+            if(this.hasMine()) {
                 setMineIcon();
             } else {
                 // if it is not a mine, update it's number

@@ -92,7 +92,6 @@ public class Game extends AppCompatActivity {
 
     }
 
-
     private final int RUNNING = 0;
     private final int WIN = 1;
     private final int LOSE = -1;
@@ -415,6 +414,7 @@ public class Game extends AppCompatActivity {
         for(int i = 0;i<board.length;i++) {
             for(int j = 0; j<board[i].length;j++) {
                 if(board[i][j].hasMine()) {
+                    board[i][j].setClickable(true);
                     board[i][j].setRevealed();
                 }
                 if(!board[i][j].isRevealed()) {

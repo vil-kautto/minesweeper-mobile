@@ -8,6 +8,9 @@ import java.util.List;
 
 /**
  * Scoredao Sends queries to database and reruns requested Score Objects
+ * @author Ville Kautto <ville.kautto@hotmail.fi>
+ * @version 2020.04.22
+ * @since 2020.04.22
  */
 @Dao
 public interface ScoreDao {

@@ -29,9 +29,13 @@ public class LevelSelectionActivity extends AppCompatActivity {
         connectService = new MyConnection();
     }
 
+    // SoundService related variables
     private SoundPlayer soundService;
     private boolean soundBound = false;
 
+    /**
+     * Prepares the soundService when the application starts
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -41,6 +45,8 @@ public class LevelSelectionActivity extends AppCompatActivity {
 
     /**
      * Clicked handles button click events from main menu. Also opens a new activity upon clicking
+     * Sends board related data to Game Activity in a intent
+     * "Custom" button opens up CustomGameActivity, so the user can enter custom parameters fpr the game
      * @param v Clicked View
      */
     public void clicked(View v) {

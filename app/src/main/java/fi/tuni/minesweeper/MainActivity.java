@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
     Activity messenger;
     private ServiceConnection connectService;
 
+    /**
+     * upon creation animates the play button, title and prepares the soundService
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Assings and starts the button animation on the main screen
+     * Assings and starts the Title animation on the main screen
      */
     public void titleAnimator() {
         ImageView title = findViewById(R.id.title);
@@ -100,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Adds funtionality to clicking the title, probably used later
+     * Adds functionality to clicking the title, probably used later
      * @param v Clicked view
      */
     public void titleClick(View v) {
@@ -115,6 +118,10 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(messenger, text, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * Sends a soundfile to soundService if the soundService is present
+     * @param audioId name of the audiofile
+     */
     private void playSound(int audioId) {
         if(soundBound) {
             soundService.playSound(audioId);

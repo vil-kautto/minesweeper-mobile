@@ -191,7 +191,7 @@ public class Game extends AppCompatActivity {
                                 timerStarted = true;
                             }
 
-                            // Mine check on clicked cell
+                            // Mine check on clicked cell that is not flagged
                             if(tempBoard[currentRow][currentCol].hasMine()) {
                                 gameState = LOSE;
                                 tempBoard[currentRow][currentCol].triggerMine();
@@ -320,8 +320,10 @@ public class Game extends AppCompatActivity {
         for(int i = 0;i<board.length;i++) {
             for(int j = 0; j<board[i].length;j++) {
                 if(!board[i][j].hasMine() && !board[i][j].isRevealed()){
+                    System.out.println("found unrevealed cell at : " + i + ',' + j);
                     return false;
                 }
+
             }
         }
         return true;
@@ -461,13 +463,12 @@ public class Game extends AppCompatActivity {
             if(!difficulty.equals("custom")) {
                 Game.scoreDatabase.scoreDao().addScore(new Score(timer, difficulty));
             }
-            toaster("Congratulations, you have won the game!");
-            toaster("" + timer);
+            toaster("Well done! The field was cleared in " + timer + " seconds!");
         } else if(gameState == LOSE) {
             if (soundBound) {
                 soundService.playSound(R.raw.explosion);
             }
-            toaster("The mine blew up and your body is now full of shrapnel.");
+            toaster("A mine blew up. Game Over.");
         } else {
             System.out.println("Why am I running");
         }
@@ -543,7 +544,7 @@ public class Game extends AppCompatActivity {
         @Override
         public void onServiceConnected(ComponentName className,
                                        IBinder service) {
-            // Assings a binder and the binder has an assigned SoundPlayer
+            // Assigns a binder and the binder has an assigned SoundPlayer
             System.out.println("Fetching soundService from binder");
             MyBinder binder = (MyBinder) service;
             soundService = binder.getSoundPlayer();

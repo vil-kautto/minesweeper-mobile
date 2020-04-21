@@ -35,12 +35,18 @@ public class HighScoreActivity extends AppCompatActivity {
 
         connectService = new MyConnection();
     }
-
+    // High score database related variables
     private static ScoreDatabase scoreDatabase;
     private ServiceConnection connectService;
+
+    // Sound service Variables
     private SoundPlayer soundService;
     private boolean soundBound = false;
 
+
+    /**
+     * preparing under the hood running systems (database, settings, soundService)
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -54,10 +60,8 @@ public class HighScoreActivity extends AppCompatActivity {
         List<Score> scoreData = scoreDatabase.scoreDao().getMediumScores();
         loadData(scoreData);
     }
-
-    int color = Color.rgb(150, 150, 150);
     /**
-     * Clicked handles button click events from main menu. Also opens a new activity upon clicking
+     * Loads data from High score database upon clicking buttons
      * @param v Clicked View
      */
     public void clicked(View v) {
@@ -92,6 +96,7 @@ public class HighScoreActivity extends AppCompatActivity {
         }
     }
 
+    // test Method, remove upon release
     public void addScore (View v) {
         for(int i = 10; i > 0; i--) {
             Score score = new Score(i*10, "medium");
@@ -101,8 +106,7 @@ public class HighScoreActivity extends AppCompatActivity {
         loadData(scoreData);
     }
 
-
-
+    // color variables
     private int grey;
     private int darkGrey;
 
@@ -110,6 +114,7 @@ public class HighScoreActivity extends AppCompatActivity {
         TableLayout tl = findViewById(R.id.scoreScreen);
         tl.removeAllViews();
 
+        // converts pixels to dps
         int dps = 6;
         final float scale = this.getResources().getDisplayMetrics().density;
         int pixels = (int) (dps * scale + 0.5f);
@@ -117,6 +122,7 @@ public class HighScoreActivity extends AppCompatActivity {
         grey = Color.rgb(150,150,150);
         darkGrey = Color.rgb(120,120,120);
 
+        // Setting default text if database is empty
         if(scoreData.isEmpty()) {
             TextView tv = new TextView(this);
             tv.setText("No high scores set yet, play to set them");
@@ -127,12 +133,14 @@ public class HighScoreActivity extends AppCompatActivity {
             tl.setBackgroundColor(grey);
             tl.addView(tv);
         } else {
+
+            // Fetching and displaying top 10 high scores
             tl.setBackgroundColor(Color.BLACK);
             tl.setPadding(2, 2, 2, 2);
 
+            // Example text for describing the scoring
             TextView infotv = new TextView(this);
             TableRow inforow = new TableRow(this);
-
             String infodata = String.format("%-20s%-20s%-20s",
                     "#", "Time:", "Date:");
             System.out.println(infodata);
@@ -144,6 +152,7 @@ public class HighScoreActivity extends AppCompatActivity {
 
             int i = 1;
 
+            // Setting the actual High score data to the table
             for(Score score : scoreData) {
                 TableRow tr = new TableRow(this);
                 TextView tv = new TextView(this);

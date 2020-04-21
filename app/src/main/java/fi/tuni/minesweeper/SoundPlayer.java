@@ -30,6 +30,7 @@ public class SoundPlayer extends Service {
         return START_NOT_STICKY;
     }
 
+    // SoundPlayer variables, used in assigning SoundPlayers
     private AudioManager audioManager;
     private static SoundPool soundPool = null;
     private static boolean loaded = false;
@@ -46,6 +47,9 @@ public class SoundPlayer extends Service {
     private final String SETTINGS = "UserSettings";
     private static boolean soundStatus;
 
+    /**
+     * Fetches settings and prepares the audio player
+     */
     private void audioSetup() {
         settings = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
         soundStatus = settings.getBoolean("sound", true);
@@ -54,7 +58,6 @@ public class SoundPlayer extends Service {
         float currentVolumeIndex = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         float maxVolumeIndex  = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         this.volume = currentVolumeIndex / maxVolumeIndex;
-
 
         // For Android SDK >= 21
         if (Build.VERSION.SDK_INT >= 21 ) {
@@ -85,9 +88,13 @@ public class SoundPlayer extends Service {
         this.soundGameOver = this.soundPool.load(this, R.raw.explosion,1);
         this.soundVictory = this.soundPool.load(this, R.raw.gratz,1);
         this.soundRestart = this.soundPool.load(this, R.raw.newgame,1);
-        System.out.println("Audio manager ready");
+        System.out.println("Audio Player ready");
     }
 
+    /**
+     * plays a given audio file if the file is loaded and the setting for sound is enabled
+     * @param audioId
+     */
     public static void playSound(int audioId) {
         if(loaded && soundStatus) {
             int streamId;
@@ -103,6 +110,10 @@ public class SoundPlayer extends Service {
         }
     }
 
+    /**
+     * Toggles the Setting for playing audio
+     * @param status set status in settings
+     */
     public void toggleSound(boolean status) {
         soundStatus = status;
     }

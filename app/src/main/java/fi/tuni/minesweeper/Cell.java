@@ -100,30 +100,40 @@ public class Cell extends AppCompatButton{
         }
     }
 
-    // clear all icons/text
+    /**
+     * Clears all the icons and text from the cell
+     */
     public void clearAllIcons() {
         this.setText("");
     }
 
-    // set font as bold
+    /**
+     * Sets the font to bold on every cell
+     */
     private void setBoldFont() {
         this.setTypeface(null, Typeface.BOLD);
     }
 
     /**
-     * reveals a clicked cell
+     * SetRevealed handles all the events related to opening a cell
      */
     public void setRevealed() {
         // cannot uncover a mine which is not covered
         if(!this.revealed && this.isClickable) {
+            //make revealed cells unclickable
             revealed = true;
             setClickable(false);
 
-            // Check for a mine
+            //Clears questionMarked cells upon reveal
+            if(this.isQuestionMarked) {
+                clearAllIcons();
+            }
+
+            // Check for a mine, and update a icon if it is
             if(hasMine()) {
                 setMineIcon();
             } else {
-                // add a number if surrounding cells contain a mine
+                // if it is not a mine, update it's number
                 updateNumber();
             }
         }
@@ -179,7 +189,7 @@ public class Cell extends AppCompatButton{
     }
 
     /**
-     * Plants a mine to specified cell
+     * Triggers a mine on a clicked cell
      */
     public void triggerMine() {
         this.setBackgroundResource(R.drawable.square_gray_mine_triggered);
@@ -218,6 +228,7 @@ public class Cell extends AppCompatButton{
             if(isQuestionMarked()) {
                 setQuestionMarked(false);
             }
+            setClickable(false);
             isFlagged = flagged;
             setFlagIcon();
 
@@ -241,6 +252,7 @@ public class Cell extends AppCompatButton{
             if(isFlagged()) {
                 setFlagged(false);
             }
+            setClickable(true);
             isQuestionMarked = questionMarked;
             setQuestionMarkIcon();
         }

@@ -21,7 +21,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.room.Room;
 
 /**
- * Settings activity contains all customizable settings
+ * Settings activity contains all customizable settings for the application
  * @author      Ville Kautto <ville.kautto@hotmail.fi>
  * @version     2020.04.22
  * @since       2020.03.24
@@ -52,11 +52,11 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean soundBound = false;
     private static ScoreDatabase scoreDatabase;
 
+    // Setting related variables
     private boolean soundStatus;
     private Switch soundSwitch;
     private boolean vibrationStatus;
     private Switch vibrationSwitch;
-
 
     /**
      * onStart binds the SoundPlayer upon application start and fetches settings and database
@@ -84,11 +84,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     }
 
+    //editor object used in setting editing
     SharedPreferences.Editor editor;
-
-
     /**
-     * Settings are saved on exiting the activity
+     * Settings are saved upon exiting the activity
      */
     @Override
     protected void onPause() {
@@ -139,9 +138,14 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
+    // failsafe variables used for confirming high score reset functionality
     private boolean failsafeDisabled = false;
     private int failsafeCount = 5;
 
+    /**
+     * Deletes all high scores after specified amount of clicks
+     * @param v Clicked View
+     */
     public void deleteScoreData(View v) {
         if(failsafeCount == 0) {
             failsafeDisabled = true;
@@ -154,7 +158,6 @@ public class SettingsActivity extends AppCompatActivity {
             toaster("Resets permanently all data. Tap " + failsafeCount + " times to confirm the deletion");
             failsafeCount--;
         }
-
     }
 
     /**
@@ -165,6 +168,10 @@ public class SettingsActivity extends AppCompatActivity {
         Toast.makeText(messenger, text, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * sends given sound files to SoundPlayer, which plays the sounds
+     * @param audioId
+     */
     private void playSound(int audioId) {
         if(soundBound) {
             soundService.playSound(audioId);
@@ -185,17 +192,9 @@ public class SettingsActivity extends AppCompatActivity {
             soundService = binder.getSoundPlayer();
             soundBound = true;
         }
-
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             soundBound = false;
         }
     }
-
-
-
-
-
-
-
 }

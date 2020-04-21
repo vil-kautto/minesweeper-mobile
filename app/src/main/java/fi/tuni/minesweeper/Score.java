@@ -7,21 +7,32 @@ import androidx.room.PrimaryKey;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * Database's Score object, used in saving scores to database
+ */
 @Entity(tableName = "scores")
 public class Score {
+    // automatically incremented primary key
     @PrimaryKey(autoGenerate = true)
     public int sid;
 
+    // Score == Field Clearing Time
     @ColumnInfo
     public int score;
 
+    // Automatically generated value upon game completion
     @ColumnInfo
     public String date;
 
+    // Completed level difficulty
     @ColumnInfo
     public String difficulty;
 
-
+    /**
+     * constructor for score object, assingns score, difficulty and date to the object
+     * @param score
+     * @param difficulty
+     */
     public Score(int score, String difficulty) {
         this.score = score;
         this.difficulty = difficulty;
@@ -32,6 +43,7 @@ public class Score {
         this.date = dateFormat.format(currentDate);
     }
 
+    // Just a bunch of setters and getters
     public int getSid() {
         return sid;
     }

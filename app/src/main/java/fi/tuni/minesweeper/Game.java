@@ -363,7 +363,7 @@ public class Game extends AppCompatActivity {
     private void uncoverNearbyCells(int currentRow, int currentCol) {
         if(!board[currentRow][currentCol].hasMine()) {
 
-            // rotating through each adjacent cell
+            // rotating through each adjacent cell, checking the cells in a 3x3 area
             for(int nextRow = -1; nextRow <= 1; nextRow++) {
                 for(int nextCol = -1; nextCol <= 1; nextCol++) {
                     if(insideBounds(currentRow+nextRow,currentCol+nextCol)) {
@@ -476,6 +476,7 @@ public class Game extends AppCompatActivity {
 
     /**
      * StarTimer starts a timer service upon clicking the first cell
+     * Also updates the tutorial text on the first click
      */
     private void startTimer() {
         TextView infobox = findViewById(R.id.infoBox);
@@ -502,6 +503,7 @@ public class Game extends AppCompatActivity {
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            // This is used when the player hits the mine on the first try
             if(gameState != RUNNING) {
                 stopTimer();
             }
@@ -509,6 +511,7 @@ public class Game extends AppCompatActivity {
             TextView infobox = findViewById(R.id.infoBox);
             timer = intent.getIntExtra("time", 0);
             tv.setText("Time: " + timer);
+            // this method also updates the tutorial text in the easier difficulties
             if(timer >= 20 && timer < 40) {
                 infobox.setText("Hold to place down flags that cannot be dug accidentally");
             } else if(timer >= 40 && timer < 60) {

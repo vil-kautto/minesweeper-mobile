@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -157,6 +158,7 @@ public class HighScoreActivity extends AppCompatActivity {
                 tv.setTextSize(pixels);
                 tv.setTextColor(Color.WHITE);
                 tv.setPadding(2, 2, 2, 2);
+                // color coding for score items
                 if(i % 2 == 0) {
                     tr.setBackgroundColor(grey);
                 } else {
@@ -167,6 +169,21 @@ public class HighScoreActivity extends AppCompatActivity {
                 i++;
             }
         }
+    }
+
+    public void addScore(View v) {
+        for(int i =0;i<10; i++) {
+            HighScoreActivity.scoreDatabase.scoreDao().addScore(new Score(i*10, "medium"));
+            toaster("Added test data to high scores");
+        }
+    }
+
+    /**
+     * Toaster creates toasts and displays them visually to user
+     * @param message Displayed message
+     */
+    public void toaster(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     /**

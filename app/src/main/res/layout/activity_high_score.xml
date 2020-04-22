@@ -94,4 +94,14 @@
 
     </TableLayout>
 
+    <Button
+        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:text="Add test data"
+        android:layout_marginBottom="20dp"
+        android:onClick="addScore"
+        android:padding="20dp"
+        style="@style/CommonButton"
+        />
+
 </LinearLayout>

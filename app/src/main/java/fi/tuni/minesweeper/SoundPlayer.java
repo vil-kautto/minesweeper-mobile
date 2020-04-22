@@ -42,7 +42,7 @@ public class SoundPlayer extends Service {
     private static boolean loaded = false;
     private static float volume = 1;
 
-    // sound files
+    // Playable sound files
     private static int soundClick;
     private static int soundGameOver;
     private static int soundVictory;
@@ -61,9 +61,6 @@ public class SoundPlayer extends Service {
         soundStatus = settings.getBoolean("sound", true);
         System.out.println("Preparing audio manager");
         audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        float currentVolumeIndex = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        float maxVolumeIndex  = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-        this.volume = currentVolumeIndex / maxVolumeIndex;
 
         // For Android SDK >= 21
         if (Build.VERSION.SDK_INT >= 21 ) {

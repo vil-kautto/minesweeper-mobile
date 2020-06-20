@@ -135,6 +135,7 @@ public class HighScoreActivity extends AppCompatActivity {
             // Example text for describing the scoring
             TextView infotv = new TextView(this);
             TableRow inforow = new TableRow(this);
+            inforow.setBackgroundColor(Color.WHITE);
             String infodata = String.format("%-20s%-20s%-20s",
                     "#", "Time:", "Date:");
             System.out.println(infodata);
@@ -151,8 +152,13 @@ public class HighScoreActivity extends AppCompatActivity {
                 TableRow tr = new TableRow(this);
                 TextView tv = new TextView(this);
 
+                String j = "" + i;
+                if (i < 10) {
+                     j = " " + i;
+                }
+
                 String data = String.format("%-20s %-20s %-20s",
-                        i + ":", score.getScore() + "  ",  score.getDate());
+                        j + ":", score.getScore(),  score.getDate());
                 System.out.println(data);
                 tv.setText(data);
                 tv.setTextSize(pixels);

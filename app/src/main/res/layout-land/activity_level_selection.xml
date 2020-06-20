@@ -16,7 +16,7 @@
         android:text="Select level difficulty"
         android:gravity="center"
         android:layout_marginTop="25dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:textSize="25sp"
         android:padding="10dp"
         style="@style/Common"
@@ -34,7 +34,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
-            android:text="Easy"
+            android:text="@string/difficulty_easy"
             android:onClick="clicked"
             style="@style/CommonButton"
             />
@@ -45,7 +45,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
-            android:text="Medium"
+            android:text="@string/difficulty_medium"
             android:onClick="clicked"
             style="@style/CommonButton"
             />
@@ -55,7 +55,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
-            android:text="Hard"
+            android:text="@string/difficulty_hard"
             android:onClick="clicked"
             style="@style/CommonButton"
             />
@@ -74,7 +74,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
-            android:text="Extreme"
+            android:text="@string/difficulty_extreme"
             android:onClick="clicked"
             style="@style/CommonButton"
             />
@@ -85,7 +85,7 @@
             android:layout_height="60dp"
             android:layout_weight="1"
             android:layout_margin="5dp"
-            android:text="Custom"
+            android:text="@string/difficulty_custom"
             android:onClick="clicked"
             style="@style/CommonButton"
             />

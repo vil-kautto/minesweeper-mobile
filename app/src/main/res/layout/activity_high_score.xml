@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -24,17 +23,17 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="1dp"
         >
 
-        <TableRow>
+        <TableRow
+            android:gravity="center"
+            android:layout_marginBottom="2dp">
             <Button
                 android:id="@+id/buttonEasy"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Easy"
+                android:text="@string/difficulty_easy"
                 android:textSize="12sp"
-                android:layout_marginBottom="15dp"
                 android:paddingTop="15dp"
                 android:onClick="clicked"
                 style="@style/SmallButton"
@@ -44,9 +43,8 @@
                 android:id="@+id/buttonMedium"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Medium"
+                android:text="@string/difficulty_medium"
                 android:textSize="12sp"
-                android:layout_marginBottom="15dp"
                 android:paddingTop="15dp"
                 android:onClick="clicked"
                 style="@style/SmallButton"
@@ -57,9 +55,8 @@
                 android:id="@+id/buttonHard"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Hard"
+                android:text="@string/difficulty_hard"
                 android:textSize="12sp"
-                android:layout_marginBottom="15dp"
                 android:paddingTop="15dp"
                 android:onClick="clicked"
                 style="@style/SmallButton"
@@ -69,9 +66,8 @@
                 android:id="@+id/buttonExtreme"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:text="Extreme"
+                android:text="@string/difficulty_extreme"
                 android:textSize="12sp"
-                android:layout_marginBottom="15dp"
                 android:paddingTop="15dp"
                 android:onClick="clicked"
                 style="@style/SmallButton"
@@ -86,10 +82,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="#FFFFFF"
         style="@style/Common"
+
         >
 
     </TableLayout>

@@ -4,64 +4,62 @@
     android:orientation="vertical"
     android:background="@drawable/board">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="75dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:layout_marginBottom="130dp"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        style="@style/Common"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/square_gray"
         android:orientation="vertical"
-        android:background="@drawable/square_gray">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textSize="25sp"
-            android:padding="40dp"
-            style="@style/Common"
-            />
+        android:padding="50dp">
 
         <Switch
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sounds"
             android:id="@+id/soundsStatus"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:onClick="clicked"
-            android:font="@font/pixel_font"
             style="@style/CommonSettings"
-            />
-
-        <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Vibration"
-            android:id="@+id/vibrationStatus"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
+            android:layout_marginBottom="20dp"
+            android:font="@font/pixel_font"
             android:onClick="clicked"
+            android:text="Sounds" />
+
+        <Switch
+            android:id="@+id/vibrationStatus"
             style="@style/CommonSettings"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="20dp"
+            android:onClick="clicked"
+            android:text="Vibration" />
 
         <Button
             android:id="@+id/clearDatabase"
+            style="@style/Common"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             android:layout_marginRight="50dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="100dp"
             android:background="#FF0505"
             android:onClick="deleteScoreData"
             android:padding="10dp"
-            android:text="Reset high scores"
-            style="@style/Common"
-            />
+            android:text="Reset high scores" />
 
     </LinearLayout>
 

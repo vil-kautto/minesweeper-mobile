@@ -322,7 +322,6 @@ public class Game extends AppCompatActivity {
                     System.out.println("found unrevealed cell at : " + i + ',' + j);
                     return false;
                 }
-
             }
         }
         return true;

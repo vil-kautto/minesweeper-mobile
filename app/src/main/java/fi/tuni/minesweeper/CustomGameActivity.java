@@ -90,7 +90,6 @@ public class CustomGameActivity extends AppCompatActivity {
                 return;
             }
 
-            startActivity(intent);
         } catch (NumberFormatException e) {
             toaster("All fields must be filled before starting a custom game");
             e.printStackTrace();

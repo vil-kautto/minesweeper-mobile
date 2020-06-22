@@ -1,5 +1,6 @@
 package fi.tuni.minesweeper;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.room.Room;
@@ -47,6 +48,8 @@ public class Game extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Redirecting back button action to level selection
+
         setContentView(R.layout.activity_game);
         messenger = this;
         v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);

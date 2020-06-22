@@ -53,6 +53,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
         Intent intent;
         playSound(R.raw.click);
         switch(v.getId()) {
+            // Parameters for Easy difficulty
             case(R.id.easyButton):
                 System.out.println("easy");
                 intent = new Intent(this, Game.class);
@@ -62,6 +63,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("difficulty", "easy");
                 startActivity(intent);
                 break;
+            // Parameters for Medium difficulty
             case(R.id.mediumButton):
                 System.out.println("medium");
                 intent = new Intent(this, Game.class);
@@ -71,6 +73,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("difficulty", "medium");
                 startActivity(intent);
                 break;
+            // Parameters for Hard difficulty
             case(R.id.hardButton):
                 System.out.println("hard");
                 intent = new Intent(this, Game.class);
@@ -80,6 +83,7 @@ public class LevelSelectionActivity extends AppCompatActivity {
                 intent.putExtra("difficulty", "hard");
                 startActivity(intent);
                 break;
+            // Parameters for Extreme difficulty
             case(R.id.extremeButton):
                 System.out.println("extreme");
                 intent = new Intent(this, Game.class);

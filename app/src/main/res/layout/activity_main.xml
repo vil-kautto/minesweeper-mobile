@@ -29,7 +29,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="20dp"
         android:text="play"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />
@@ -41,7 +41,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:text="High Scores"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />
@@ -53,7 +53,7 @@
         android:layout_gravity="center"
         android:layout_marginBottom="20dp"
         android:text="Settings"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:onClick="clicked"
         style="@style/CommonButton"
         />

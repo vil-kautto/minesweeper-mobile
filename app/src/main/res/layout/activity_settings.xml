@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="@string/title_activity_settings"
         android:textSize="25sp"
         android:gravity="center"
         android:padding="10dp"
@@ -38,7 +38,7 @@
             android:padding="10dp"
             android:font="@font/pixel_font"
             android:onClick="clicked"
-            android:text="Sounds" />
+            android:text="@string/settings_sound" />
 
         <Switch
             android:id="@+id/vibrationStatus"
@@ -50,7 +50,7 @@
             android:layout_marginBottom="20dp"
             android:padding="10dp"
             android:onClick="clicked"
-            android:text="Vibration" />
+            android:text="@string/settings_vibration" />
 
         <Button
             android:id="@+id/clearDatabase"

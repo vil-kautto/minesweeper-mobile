@@ -1,12 +1,33 @@
 <resources>
+    <!-- Main menu selection screen strings -->
     <string name="app_name">Rhinesweeper</string>
-    <string name="title_activity_settings">Settings</string>
+    <string name="title_play">Play</string>
+    <string name="title_high_scores">High Scores</string>
+    <string name="title_settings">Settings</string>
+
+    <!-- Level selection screen strings -->
+    <string name="title_level_selection">Level Selection</string>
     <string name="difficulty_easy">Easy</string>
     <string name="difficulty_medium">Medium</string>
     <string name="difficulty_hard">Hard</string>
     <string name="difficulty_extreme">Extreme</string>
     <string name="difficulty_custom">Custom</string>
 
+    <!-- Custom game screen strings -->
+    <string name="title_custom">Custom Game</string>
+    <string name="custom_subtitle">Fill the following fields to start a custom game</string>
+    <string name="custom_board">Board Size (3-30)</string>
+    <string name="custom_mines">Amount of mines (1-360)</string>
+    <string name="custom_high_score_info">Note: Custom games are not recorded to High Scores</string>
+    <string name="custom_button_start">Start Custom Game</string>
+
+    <!-- Game screen strings -->
+    <string name="mines">Mines:</string>
+    <string name="timer">Time:</string>
+
+    <!-- High Score screen strings -->
+
+    <!-- Settings screen strings -->
     <string name="settings_sound">Sounds</string>
     <string name="settings_vibration">Vibration</string>
     <string name="button_reset_data">Reset high scores</string>

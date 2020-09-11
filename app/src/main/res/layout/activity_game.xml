@@ -14,19 +14,17 @@
 
         <TableRow
             android:stretchColumns="*"
-            android:paddingTop="1dp"
-            android:paddingBottom="1dp"
+            android:padding="5dp"
+            android:gravity="center"
             >
 
             <TextView
                 android:id="@+id/mineCounter"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
+                android:layout_height="60dp"
                 android:gravity="center"
-                android:text="Mines: Yes"
+                android:text="@string/mines"
                 android:textSize="20dp"
-                style="@style/Common"
+                style="@style/CommonText"
                 />
 
             <ImageButton
@@ -40,13 +38,11 @@
 
             <TextView
                 android:id="@+id/timer"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:gravity="center"
-                android:layout_weight="1"
-                android:text="Time: 0"
+                android:text="@string/timer"
                 android:textSize="20dp"
-                style="@style/Common"
+                style="@style/CommonText"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 />
@@ -86,7 +82,7 @@
         android:textSize="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        style="@style/Common"
+        style="@style/CommonText"
         />
 
 </LinearLayout>

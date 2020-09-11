@@ -30,7 +30,6 @@ import java.util.Random;
  * @since       2020.03.24
  */
 public class Game extends AppCompatActivity {
-
     static Activity messenger;
     Vibrator v;
 
@@ -58,7 +57,6 @@ public class Game extends AppCompatActivity {
         difficulty = intent.getStringExtra("difficulty");
 
         connectService = new MyConnection();
-
         newGame();
     }
 
@@ -256,6 +254,7 @@ public class Game extends AppCompatActivity {
 
     /**
      * SetMines sets mines to random locations in the board
+     * This is not really efficient. Too bad.
      */
     public void setMines() {
         System.out.println("Adding mines");

@@ -16,12 +16,13 @@
     </style>
 
     <!-- Common text customization -->
-    <style name="Common">
+    <style name="CommonText">
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:fontFamily">@font/pixel_font</item>
         <item name="fontFamily">@font/pixel_font</item>
         <item name="android:textStyle">normal</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">12dp</item>
 
         <!-- Text Shadow Customization -->
         <item name="android:shadowColor">#000000</item>
@@ -48,10 +49,11 @@
         <item name="android:paddingTop">10dp</item>
         <item name="android:background">@drawable/buttonshape</item>
 
+
         <!-- Basic Button Text Customization -->
         <item name="android:fontFamily">@font/pixel_font</item>
         <item name="fontFamily">@font/pixel_font</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginBottom">20dp</item>
         <item name="android:textStyle">normal</item>

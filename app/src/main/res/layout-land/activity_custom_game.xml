@@ -21,28 +21,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Custom game"
+            android:text="@string/title_custom"
             android:textSize="25sp"
             android:layout_marginBottom="5dp"
             android:padding="10dp"
-            style="@style/Common"
+            style="@style/CommonText"
             />
 
         <TextView
+            android:text="@string/custom_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Enter the following fields to start a custom game"
             android:textSize="13sp"
             android:textStyle="bold"
-            android:layout_marginTop="5dp"
             android:padding="10dp"
-            style="@style/Common"
+            style="@style/CommonText"
             />
 
         <EditText
-            android:hint="Board Size (3-30)"
             android:id="@+id/boardSize"
+            android:hint="@string/custom_board"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,8 +52,8 @@
             />
 
         <EditText
-            android:hint="Amount of mines (1-360)"
             android:id="@+id/mineAmount"
+            android:hint="@string/custom_mines"
             android:inputType="numberDecimal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,24 +64,24 @@
             />
 
         <TextView
-            android:text="Note: Custom games are not recorded to High Scores"
+            android:text="@string/custom_high_score_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
+            android:textSize="13sp"
             android:padding="10dp"
-            style="@style/Common"
+            style="@style/CommonText"
             />
 
         <Button
+            android:text="@string/custom_button_start"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:text="Start Custom Game"
-            android:textSize="12sp"
             android:onClick="clicked"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
+            android:textSize="12sp"
             android:padding="25dp"
             style="@style/CommonButton"
             />

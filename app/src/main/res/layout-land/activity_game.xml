@@ -25,11 +25,11 @@
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Mines: Yes"
+                android:text="@string/mines"
                 android:textSize="20dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                style="@style/Common"
+                style="@style/CommonText"
                 />
 
             <ImageButton
@@ -48,9 +48,9 @@
                 android:layout_width="match_parent"
                 android:gravity="center"
                 android:layout_weight="1"
-                android:text="Time: 0"
+                android:text="@string/timer"
                 android:textSize="20dp"
-                style="@style/Common"
+                style="@style/CommonText"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 />
@@ -90,7 +90,7 @@
         android:textSize="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        style="@style/Common"
+        style="@style/CommonText"
         />
 
 </LinearLayout>

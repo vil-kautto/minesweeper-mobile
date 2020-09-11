@@ -81,7 +81,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         soundSwitch.setChecked(soundStatus);
         vibrationSwitch.setChecked(vibrationStatus);
-
     }
 
     //editor object used in setting editing
@@ -97,7 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.commit();
 
         System.out.println("sound:" + soundStatus + ", vibration:" + vibrationStatus);
-        toaster("Settings saved Successfully");
+        toaster("Settings saved successfully.");
         super.onPause();
     }
 
@@ -155,7 +154,7 @@ public class SettingsActivity extends AppCompatActivity {
             System.out.println("Deleted All database entries");
             toaster("Deleted all High Scores");
         }else {
-            toaster("Resets permanently all data. Tap " + failsafeCount + " times to confirm the deletion");
+            toaster("Erases permanently ALL data. Tap " + failsafeCount + " times to confirm the deletion");
             failsafeCount--;
         }
     }

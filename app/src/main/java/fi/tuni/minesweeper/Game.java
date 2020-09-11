@@ -106,6 +106,7 @@ public class Game extends AppCompatActivity {
      */
     public void newGame() {
         gameState = RUNNING;
+        resetStats();
         System.out.println("Starting a new game");
         board = generateBoard();
         setMines();
@@ -195,7 +196,6 @@ public class Game extends AppCompatActivity {
                                 gameState = LOSE;
                                 tempBoard[currentRow][currentCol].triggerMine();
                                 gameResolve();
-
                             }
 
                             // Checking for win condition
@@ -527,7 +527,7 @@ public class Game extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(Game.this).registerReceiver(broadcastReceiver, new IntentFilter("TIMER"));
-        stopTimer();
+
     }
 
     /**

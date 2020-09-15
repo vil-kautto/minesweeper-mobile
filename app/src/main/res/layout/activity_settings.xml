@@ -7,12 +7,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_activity_settings"
+        android:text="@string/title_settings"
         android:textSize="25sp"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="50dp"
+        android:onClick="enableDebug"
         style="@style/CommonText"
         />
 
@@ -52,12 +53,25 @@
             android:onClick="clicked"
             android:text="@string/settings_vibration" />
 
+        <Switch
+            android:id="@+id/debugStatus"
+            style="@style/CommonSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="20dp"
+            android:padding="10dp"
+            android:onClick="clicked"
+            android:text="@string/settings_debug"
+            android:visibility="invisible" />
+
         <Button
             android:id="@+id/clearDatabase"
             style="@style/CommonText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"

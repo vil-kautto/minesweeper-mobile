@@ -57,6 +57,9 @@ public class SettingsActivity extends AppCompatActivity {
     private Switch soundSwitch;
     private boolean vibrationStatus;
     private Switch vibrationSwitch;
+    private boolean debugStatus;
+    private Switch debugSwitch;
+    private int debugTrigger = 20;
 
     /**
      * onStart binds the SoundPlayer upon application start and fetches settings and database
@@ -75,12 +78,15 @@ public class SettingsActivity extends AppCompatActivity {
 
         soundStatus = settings.getBoolean("sound", true);
         vibrationStatus = settings.getBoolean("vibration", true);
+        debugStatus = settings.getBoolean("debug", false);
 
         soundSwitch = findViewById(R.id.soundsStatus);
         vibrationSwitch = findViewById(R.id.vibrationStatus);
+        debugSwitch = findViewById(R.id.debugStatus);
 
         soundSwitch.setChecked(soundStatus);
         vibrationSwitch.setChecked(vibrationStatus);
+        debugSwitch.setChecked(debugStatus);
     }
 
     //editor object used in setting editing
@@ -93,9 +99,12 @@ public class SettingsActivity extends AppCompatActivity {
         editor = settings.edit();
         editor.putBoolean("sound", soundStatus);
         editor.putBoolean("vibration", vibrationStatus);
+        editor.putBoolean("debug", debugStatus);
         editor.commit();
 
-        System.out.println("sound:" + soundStatus + ", vibration:" + vibrationStatus);
+        System.out.println("sound:" + soundStatus +
+                ", vibration:" + vibrationStatus +
+                ", debug" + debugStatus);
         toaster("Settings saved successfully.");
         super.onPause();
     }
@@ -107,6 +116,7 @@ public class SettingsActivity extends AppCompatActivity {
      * @param v
      */
     public void clicked(View v) {
+        System.out.println(v.getId());
         switch(v.getId()) {
             case R.id.soundsStatus:
                 soundStatus = !soundStatus;
@@ -116,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
                 // Feedback after user has toggled
                 if(soundStatus) {
                     toaster("Sounds enabled");
-                }else if(!soundStatus) {
+                } else if(!soundStatus) {
                     toaster("Sounds disabled");
                 }
 
@@ -130,10 +140,35 @@ public class SettingsActivity extends AppCompatActivity {
                 // Feedback after user has toggled
                 if(vibrationStatus) {
                     toaster("Vibration enabled");
-                }else if(!vibrationStatus) {
+                } else if(!vibrationStatus) {
                     toaster("Vibration disabled");
                 }
                 break;
+            case R.id.debugStatus:
+                debugStatus = !debugStatus;
+                System.out.println("DebugStatus was changed to " + debugStatus);
+                playSound(R.raw.click);
+
+                // Feedback after user has toggled
+                if(!debugStatus) {
+                    toaster("Debugging disabled");
+                    debugSwitch.setVisibility(View.INVISIBLE);
+                    debugTrigger = 20;
+                }
+                break;
+        }
+    }
+
+    public void enableDebug(View v) {
+        if(debugTrigger > 0 && !debugStatus) {
+            debugTrigger--;
+            System.out.println("Debug mode enabled in " + debugTrigger + " clicks" );
+            if(debugTrigger <= 0) {
+                toaster("Debugging enabled");
+                debugStatus = !debugStatus;
+                debugSwitch.setChecked(debugStatus);
+                debugSwitch.setVisibility(View.VISIBLE);
+            }
         }
     }
 

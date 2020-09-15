@@ -5,14 +5,16 @@
     android:background="@drawable/board">
 
     <TextView
+        android:id="@+id/settingsTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Settings"
+        android:text="@string/title_settings"
         android:textSize="25sp"
         android:gravity="center"
         android:padding="10dp"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
+        android:onClick="enableDebug"
         style="@style/CommonText"
         />
 
@@ -25,33 +27,41 @@
         android:background="@drawable/square_gray">
 
         <Switch
+            android:id="@+id/soundStatus"
+            style="@style/CommonSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_sound"
-            android:id="@+id/soundsStatus"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:padding="10dp"
             android:onClick="clicked"
-            android:switchTextAppearance="@font/pixel_font"
-            android:font="@font/pixel_font"
-            style="@style/CommonSettings"
-            />
+            android:text="@string/settings_sound" />
 
         <Switch
+            android:id="@+id/vibrationStatus"
+            style="@style/CommonSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/settings_vibration"
-            android:id="@+id/vibrationStatus"
-            android:padding="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:switchTextAppearance="@font/pixel_font"
+            android:padding="10dp"
             android:onClick="clicked"
+            android:text="@string/settings_vibration" />
+
+        <Switch
+            android:id="@+id/debugStatus"
             style="@style/CommonSettings"
-            />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:onClick="clicked"
+            android:text="@string/settings_debug"
+            android:visibility="invisible"/>
 
         <Button
             android:id="@+id/clearDatabase"

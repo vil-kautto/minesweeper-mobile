@@ -30,6 +30,7 @@
     <!-- Settings screen strings -->
     <string name="settings_sound">Sounds</string>
     <string name="settings_vibration">Vibration</string>
+    <string name="settings_debug">Debug</string>
     <string name="button_reset_data">Reset high scores</string>
 
 </resources>

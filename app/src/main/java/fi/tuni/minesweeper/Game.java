@@ -151,8 +151,8 @@ public class Game extends AppCompatActivity {
 
         timer = 0;
         timerStarted = false;
-        TextView timer = findViewById(R.id.timer);
-        timer.setText("Time: 0");
+        TextView time = findViewById(R.id.timer);
+        time.setText("Time:"+ '\n' + timer);
     }
 
     private int minesFlagged = 0;
@@ -402,7 +402,7 @@ public class Game extends AppCompatActivity {
     private void updateMineCountDisplay() {
         int minesDisplayed = mines - minesFlagged;
         TextView tv = findViewById(R.id.mineCounter);
-        tv.setText("Mines: "+ minesDisplayed);
+        tv.setText("Mines:" + '\n' + minesDisplayed);
     }
 
     /**
@@ -508,7 +508,7 @@ public class Game extends AppCompatActivity {
             TextView tv = (TextView) findViewById(R.id.timer);
             TextView infobox = findViewById(R.id.infoBox);
             timer = intent.getIntExtra("time", 0);
-            tv.setText("Time: " + timer);
+            tv.setText("Time: "+ '\n' + timer);
             // this method also updates the tutorial text in the easier difficulties
             if(timer >= 20 && timer < 40) {
                 infobox.setText("Hold to place down flags that cannot be dug accidentally");

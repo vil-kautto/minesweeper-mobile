@@ -109,6 +109,7 @@ public class Game extends AppCompatActivity {
         board = generateBoard();
         setMines();
         setScene();
+
         TextView tv = findViewById(R.id.infoBox);
         tv.setText("Clear the field without triggering the mines");
     }
@@ -119,8 +120,6 @@ public class Game extends AppCompatActivity {
      * @param v ImageButton's view
      */
     public void newGame(View v) {
-        System.out.println("This feature is still in progress, please wait for the next release");
-
         // resetting previous stats
         resetStats();
 
@@ -310,7 +309,7 @@ public class Game extends AppCompatActivity {
     }
 
     /**
-     * gameWincheck goes through the entire board and scans it for
+     * gameWinCheck goes through the entire board and scans it for
      * cells that are mineless and not revealed
      * @return returns false, unless the player wins the game
      */

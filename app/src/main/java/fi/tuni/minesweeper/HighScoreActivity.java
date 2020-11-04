@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -43,6 +44,14 @@ public class HighScoreActivity extends AppCompatActivity {
     private SoundPlayer soundService;
     private boolean soundBound = false;
 
+    // setting related variables
+    private SharedPreferences settings;
+    private final String SETTINGS = "UserSettings";
+
+    // debugging variables
+    private boolean debugStatus;
+    private View debugButton;
+
 
     /**
      * preparing under the hood running systems (database, settings, soundService)
@@ -59,6 +68,13 @@ public class HighScoreActivity extends AppCompatActivity {
             .build();
         List<Score> scoreData = scoreDatabase.scoreDao().getMediumScores();
         loadData(scoreData);
+
+        settings = getSharedPreferences(SETTINGS, Context.MODE_PRIVATE);
+        debugStatus = settings.getBoolean("debug", true);
+        if(debugStatus) {
+            debugButton = findViewById(R.id.debugButton);
+            debugButton.setVisibility(View.VISIBLE);
+        }
     }
     /**
      * Loads data from High score database upon clicking buttons

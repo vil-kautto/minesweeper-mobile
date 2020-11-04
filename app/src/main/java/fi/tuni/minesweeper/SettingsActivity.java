@@ -84,9 +84,14 @@ public class SettingsActivity extends AppCompatActivity {
         vibrationSwitch = findViewById(R.id.vibrationStatus);
         debugSwitch = findViewById(R.id.debugStatus);
 
+        if(debugStatus) {
+            debugSwitch.setVisibility(View.VISIBLE);
+        }
+
         soundSwitch.setChecked(soundStatus);
         vibrationSwitch.setChecked(vibrationStatus);
         debugSwitch.setChecked(debugStatus);
+
     }
 
     //editor object used in setting editing

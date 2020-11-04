@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
  * @version 2020.04.22
  * @since 2020.04.22
  */
-@Database(entities = {Score.class}, version = 4)
+@Database(entities = {Score.class}, version = 4, exportSchema = false)
 public abstract class ScoreDatabase extends RoomDatabase {
     public abstract ScoreDao scoreDao();
 }

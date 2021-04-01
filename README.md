@@ -1,3 +1,5 @@
+![Image](https://i.imgur.com/8YjwQiJ.png)
+
 # Rhinesweeper
 Rhinesweeper is a minesweeper game developed natively for android, written by using java programming language
 
